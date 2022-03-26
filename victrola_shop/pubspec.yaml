@@ -27,6 +27,10 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  flutter_credit_card: "^3.0.1"
+  sqflite: ^2.0.2
+  path: ^1.8.0
+  path_provider: ^2.0.8 
   flutter:
     sdk: flutter
 
