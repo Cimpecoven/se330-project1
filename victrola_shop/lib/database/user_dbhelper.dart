@@ -62,7 +62,6 @@ class DatabaseHelper {
       conflictAlgorithm: ConflictAlgorithm.replace
     );
 
-    Map<String, dynamic> sqlCartItem;
     for (var cartItem in account.cart.entries) {
 
       Map<String, dynamic> sqlCartItem = {
@@ -82,7 +81,7 @@ class DatabaseHelper {
 
   Future<Account?> getUserAccountData(String email, String password) async {
     final client = await database;
-    final List<Map<String, dynamic>> accountMap = await client!.query('Account', where: 'email = \'$email\' AND password = \'$password\' ');
+    final List<Map<String, dynamic>> accountMap = await client!.query('Account', where: 'email = ? AND password = ? ', whereArgs: [email, password]);
     if (accountMap.isEmpty)
     {
       // there wasn't a user with that data (yet), return null
@@ -90,9 +89,16 @@ class DatabaseHelper {
     }
 
     final Account account = Account.accountFromMap(accountMap.first); // Take the first because it should exist if we get to here
-    final List<Map<String, dynamic>> cartItemsMapList = await client!.query('CartItems', where: 'email = \'$email\' AND password = \'$password\' ');
+    final List<Map<String, dynamic>> cartItemsMapList = await client!.query('CartItems', where: 'email = ? AND password = ? ', whereArgs: [email, password]);
     account.cartFromMapList(cartItemsMapList);
     return account;
+  }
+
+  void deleteCartItem(int productType) async {
+    final email = DatabaseHelper.userInstance!.email;
+    final password = DatabaseHelper.userInstance!.password;
+    final client = await database;
+    await client!.delete('CartItems', where: 'productId = ? AND email = ? AND password = ? ', whereArgs: [productType, email, password]);
   }
 
   // Future<List<Map<String, dynamic>>> getEmployeeMapList() async {
