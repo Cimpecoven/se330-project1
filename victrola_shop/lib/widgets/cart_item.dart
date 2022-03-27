@@ -13,8 +13,19 @@ class CartItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
+    return Column(
+      children: <Widget>[
+        ListTile(
+          leading: SizedBox(
+                    height: 50,
+                    width: 50,
+                    child: Image.network(product.imageUrls[0], fit: BoxFit.cover)
+                  ), // Image of item
+          title: Text(product.productName),
+          subtitle: Text(quantity.toString()), // Quantity section
+          trailing: Text('test'), // Cost/Remove button
+        )
+      ]
     );
   }
 }
