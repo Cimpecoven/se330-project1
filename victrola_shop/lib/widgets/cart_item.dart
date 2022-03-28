@@ -16,14 +16,19 @@ class CartItem extends StatelessWidget {
     return Column(
       children: <Widget>[
         ListTile(
+          style: ListTileStyle.list,
           leading: SizedBox(
                     height: 50,
                     width: 50,
                     child: Image.network(product.imageUrls[0], fit: BoxFit.cover)
                   ), // Image of item
           title: Text(product.productName),
-          subtitle: Text(quantity.toString()), // Quantity section
-          trailing: Text('test'), // Cost/Remove button
+          subtitle: Text('boo'),
+                    // SizedBox(width: MediaQuery.of(context).size.width * 0.5) // Quantity section
+          trailing: IconButton(
+            icon: Icon(Icons.cancel, color: Colors.red[700]),
+            onPressed: () => {},
+          ) // Cost/Remove button
         )
       ]
     );
