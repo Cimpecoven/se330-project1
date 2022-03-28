@@ -8,6 +8,8 @@ class CheckoutScreen extends StatelessWidget {
 
   static String routeName = '/checkout';
   final cartData = DatabaseHelper.userInstance!.cart.entries;
+  final userProfileData = DatabaseHelper.userInstance!.profiles[0];
+  final userPaymentInfo = userProfileData.paymentInfo;
   final shippingFeePercent = 0.03;
   final taxPercent = 0.04;
   var cartSubtotal = 0.0;
@@ -77,8 +79,8 @@ class CheckoutScreen extends StatelessWidget {
                     children: [
                       ListTile(
                         leading: Icon(Icons.credit_card),
-                        title: Text('CrediCard ending in ****1234'),
-                        subtitle: Text('*Address here'),
+                        title: Text('Card ending in ${userPaymentInfo[0].cardNumber.substring(userPaymentInfo[0].cardNumber.length-4)}'),
+                        subtitle: Text(userPaymentInfo[0].billingAddress.streetAddress),
                       ),
                       ListTile(
                         title: Text('Change Payment Method'),
@@ -107,7 +109,7 @@ class CheckoutScreen extends StatelessWidget {
                     children: [
                       ListTile(
                         leading: Icon(Icons.credit_card),
-                        title: Text('123 Sesame St. New York City, NY 12345'),
+                        title: Text(),
                       ),
                       ListTile(
                         title: Text('Change Address Method'),
