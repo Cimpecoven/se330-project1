@@ -4,6 +4,7 @@ import 'package:victrola_shop/database/user_dbhelper.dart';
 import 'package:victrola_shop/models/account.dart';
 import 'package:victrola_shop/screens/landing_screen.dart';
 import 'package:victrola_shop/screens/Cart-CheckoutScreens/shopping-cart_screen.dart';
+import 'package:victrola_shop/static-data/test_account_data.dart';
 
 void main() {
   runApp(const MyApp());
@@ -55,29 +56,15 @@ class AppView extends StatefulWidget {
 }
 
 class _AppViewState extends State<AppView> {
-  // TabItem _currentTab = TabItem.home;
-  // final navigatorKey = GlobalKey<NavigatorState>();
   final PageController _myPage = PageController(initialPage: 1);
   var selectedPage = 1;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _myPage =
-  //   selectedPage = 1;
-  // }
-
-  // void _selectTab(TabItem tab) {
-  //   setState(() {
-  //     _currentTab = tab;
-  //   });
-  // }
-
-  // void _selectTab(TabItem tab) {
-  //   setState(() {
-  //     _currentTab = tab;
-  //   });
-  // }
+  // DEMO CODE
+  @override
+  void initState() {
+    DatabaseHelper.userInstance = TEST_ACCOUNT_DATA.first;
+    DatabaseHelper.userInstance!.cart.addAll(<int, int>{ 3: 1, 2: 2, 1: 3 });
+  }
 
   void _selectTab(int index) {
     _myPage.jumpToPage(index);
@@ -96,7 +83,7 @@ class _AppViewState extends State<AppView> {
           // Will have our three pages here
           Center(child: Text("PROFILE PAGE")),
           LandingScreen(), //Center(child: Text("HOME PAGE")),
-          Center(child: Text("CART PAGE")), //ShoppingCartScreen()
+          ShoppingCartScreen()
         ],
       ), //TabNavigator(navigatorKey: navigatorKey, tabItem: _currentTab)
       bottomNavigationBar: BottomNavigationBar(

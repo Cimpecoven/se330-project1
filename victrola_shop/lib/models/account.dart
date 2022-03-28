@@ -12,7 +12,7 @@ class Account {
   final String email;
   final String password;
   // final List<UserProfile> profiles;
-  final Map<int, int> cart = <int, int>{}; // Cart represented by two ints - key: the array-index of the product; value: the quantity of said product 
+  final Map<int, int> cart = <int, int>{}; // Cart represented by two ints - key: the array-index of the product in product_data; value: the quantity of said product 
 
   factory Account.accountFromMap(Map<String, dynamic> map) {
     return Account(
