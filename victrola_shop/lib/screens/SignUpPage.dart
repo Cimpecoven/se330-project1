@@ -105,18 +105,20 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 keyboardType: TextInputType.text,
                 validator: (value) {
-                  (value == null || value.isEmpty) ? 'Re-enter Password' : null;
-                  (value != null && passCheck == value)
-                      ? match = true
-                      : 'Passwords do not match!';
+                  if (value != null && value.compareTo(passCheck) == 1) {
+                    match = true;
+                    return null;
+                  } else {
+                    return 'Passwords do not match!';
+                  }
                 },
-                onSaved: (value) {
-                  if (value != null && passCheck == value) {
-                    password = value;
+                /*onSaved: (value) {
+                  if (match) {
+                    password = value!;
                   } else {
                     //some kind of message that the pass words dont match
                   }
-                },
+                },*/
               ),
             ),
             Container(
