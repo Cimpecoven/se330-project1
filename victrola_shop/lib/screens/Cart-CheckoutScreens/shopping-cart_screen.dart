@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'package:victrola_shop/database/user_dbhelper.dart';
 import 'package:victrola_shop/static-data/product_data.dart';
-import 'package:victrola_shop/static-data/test_account_data.dart';
 import 'package:victrola_shop/widgets/cart_item.dart';
 
 class ShoppingCartScreen extends StatelessWidget {
@@ -91,6 +90,9 @@ class ShoppingCartScreen extends StatelessWidget {
 
               // Proceed to checkout button
               TextButton(
+                style: ButtonStyle(
+                  alignment: Alignment.center
+                ),
                 onPressed: onPressed,
                 child: child
               ),     
