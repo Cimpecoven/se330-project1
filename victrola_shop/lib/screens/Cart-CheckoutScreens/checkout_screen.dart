@@ -29,6 +29,13 @@ class CheckoutScreen extends StatelessWidget {
             child: Column(
               children: [
                 // Totals at the top
+                SizedBox(height: 15.0),
+                Text('Final Total: ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.0
+                    ),
+                ),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.24,
                   width: MediaQuery.of(context).size.width - 50,
@@ -57,13 +64,14 @@ class CheckoutScreen extends StatelessWidget {
                 SizedBox(height: 15.0),
 
                 // Payment Method
-                // Row(
-                //   children: [
-                //     Icon()
-                //   ]
-                // )
+                Text('Payment Method: ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.0
+                    ),
+                ),
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.24,
+                  height: MediaQuery.of(context).size.height * 0.2,
                   width: MediaQuery.of(context).size.width - 50,
                   child: ListView(
                     children: [
@@ -86,6 +94,33 @@ class CheckoutScreen extends StatelessWidget {
                 SizedBox(height: 15.0),
 
                 // Shipping Info
+                Text('Shipping Info: ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.0
+                    ),
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.2,
+                  width: MediaQuery.of(context).size.width - 50,
+                  child: ListView(
+                    children: [
+                      ListTile(
+                        leading: Icon(Icons.credit_card),
+                        title: Text('123 Sesame St. New York City, NY 12345'),
+                      ),
+                      ListTile(
+                        title: Text('Change Address Method'),
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.add),
+                        title: Text('Add new Address'),
+                      ), 
+                    ],
+                  )
+                ),
+                Divider(), 
+                SizedBox(height: 5.0),
 
                 // Go back to cart button
                 ElevatedButton(

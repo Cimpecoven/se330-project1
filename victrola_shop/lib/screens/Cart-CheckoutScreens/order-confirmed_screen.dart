@@ -13,24 +13,28 @@ class OrderConfirmedScreen extends StatelessWidget {
               children: [
                 Center(
                   child: Text('Thank you for shopping with us!',
+                  textAlign: TextAlign.center,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 38.0
                     ),
                   ),
                 ),
-                
                 SizedBox(height: 15.0),
 
                 Container(
+                width: MediaQuery.of(context).size.height * 0.4,
+                height: MediaQuery.of(context).size.height * 0.4,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50.0),
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.lightGreen[800]!, width: 10.0),
+                    // borderRadius: BorderRadius.circular(50.0),
                     color: Colors.lightGreen[900]),
-                    child: Icon(Icons.check, size: 38.0, color: Colors.green[700]),
+                    child: Icon(Icons.check, size: 150.0, color: Colors.green[600]),
                 ),
                 
                 Center(
-                  child: Text('Thank you for shopping with us!'),
+                  child: Text('Order Confirmed!', textAlign: TextAlign.center),
                 ),
                 SizedBox(height: 15.0),
 
@@ -40,7 +44,6 @@ class OrderConfirmedScreen extends StatelessWidget {
                     backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
                     minimumSize: MaterialStateProperty.all(Size((MediaQuery.of(context).size.width * 0.5), 40.0))
                   ),
-                  // onPressed: () => Navigator.pushNamed(context, CheckoutScreen.routeName),
                   onPressed: () {
                     Navigator.popUntil(context, (route) => false);
                     Navigator.of(context).pushNamed('/');
