@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:victrola_shop/models/product.dart';
 
 class CartItem extends StatelessWidget {
-  const CartItem({
+  CartItem({
     Key? key,
     required this.product,
     required this.quantity
   }) : super(key: key);
 
   final Product product;
-  final int quantity;
+  int quantity;
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +23,21 @@ class CartItem extends StatelessWidget {
                     child: Image.network(product.imageUrls[0], fit: BoxFit.cover)
                   ), // Image of item
           title: Text(product.productName),
-          subtitle: Text('boo'),
-                    // SizedBox(width: MediaQuery.of(context).size.width * 0.5) // Quantity section
+          subtitle: Row(children: [
+            IconButton(
+              icon: Icon(Icons.remove),
+              onPressed: () {
+                quantity--;
+              }
+            ),
+            Text(quantity.toString()),
+            IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                quantity++;
+              }
+            )
+          ]),
           trailing: IconButton(
             icon: Icon(Icons.cancel, color: Colors.red[700]),
             onPressed: () => {},

@@ -25,64 +25,99 @@ class CheckoutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-          body: Column(
-            children: [
-              // Totals at the top
-              Container(
-                height: MediaQuery.of(context).size.height * 0.24,
-                width: MediaQuery.of(context).size.width - 50,
-                child: ListView(
-                  children: [
-                     ListTile(
-                      leading: Text('SubTotal'),
-                      trailing: Text('\$${cartSubtotal.toStringAsFixed(2)}'),
-                    ),
-                    ListTile(
-                      leading: Text('Shipping Fee'),
-                      trailing: Text('\$${(cartSubtotal * shippingFeePercent).toStringAsFixed(2)}'),
-                    ),
-                    ListTile(
-                      leading: Text('Taxes'),
-                      trailing: Text('\$${(cartSubtotal * taxPercent).toStringAsFixed(2)}'),
-                    ),
-                    ListTile(
-                      leading: Text('SubTotal'),
-                      trailing: Text('\$${cartTotal.toStringAsFixed(2)}'),
-                    ) 
-                  ],
-                )
-              ),
-              Divider(), 
-
-              // Go back to cart button
-              ElevatedButton(
-                style: ButtonStyle(
-                  alignment: Alignment.center,
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
-                  minimumSize: MaterialStateProperty.all(Size((MediaQuery.of(context).size.width * 0.5), 40.0))
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                // Totals at the top
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.24,
+                  width: MediaQuery.of(context).size.width - 50,
+                  child: ListView(
+                    children: [
+                      ListTile(
+                        leading: Text('SubTotal'),
+                        trailing: Text('\$${cartSubtotal.toStringAsFixed(2)}'),
+                      ),
+                      ListTile(
+                        leading: Text('Shipping Fee'),
+                        trailing: Text('\$${(cartSubtotal * shippingFeePercent).toStringAsFixed(2)}'),
+                      ),
+                      ListTile(
+                        leading: Text('Taxes'),
+                        trailing: Text('\$${(cartSubtotal * taxPercent).toStringAsFixed(2)}'),
+                      ),
+                      ListTile(
+                        leading: Text('Total (with tax)'),
+                        trailing: Text('\$${cartTotal.toStringAsFixed(2)}'),
+                      ) 
+                    ],
+                  )
                 ),
-                // onPressed: () => Navigator.pushNamed(context, CheckoutScreen.routeName),
-                onPressed: () => Navigator.of(context).pop(MaterialPageRoute(
-                      builder: (context) => CheckoutScreen())),
-                child: Text('Go back to Cart')
-              ), 
+                Divider(), 
+                SizedBox(height: 15.0),
 
-              SizedBox(width: 10),
-              // Confirm order button
-              ElevatedButton(
-                style: ButtonStyle(
-                  alignment: Alignment.center,
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
-                  minimumSize: MaterialStateProperty.all(Size((MediaQuery.of(context).size.width * 0.5), 40.0))
+                // Payment Method
+                // Row(
+                //   children: [
+                //     Icon()
+                //   ]
+                // )
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.24,
+                  width: MediaQuery.of(context).size.width - 50,
+                  child: ListView(
+                    children: [
+                      ListTile(
+                        leading: Icon(Icons.credit_card),
+                        title: Text('CrediCard ending in ****1234'),
+                        subtitle: Text('*Address here'),
+                      ),
+                      ListTile(
+                        title: Text('Change Payment Method'),
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.add),
+                        title: Text('Add new Payment'),
+                      ), 
+                    ],
+                  )
                 ),
-                // onPressed: () => Navigator.pushNamed(context, CheckoutScreen.routeName),
-                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => OrderConfirmedScreen())),
-                child: Text('Confirm Purchase')
-              ),   
+                Divider(), 
+                SizedBox(height: 15.0),
+
+                // Shipping Info
+
+                // Go back to cart button
+                ElevatedButton(
+                  style: ButtonStyle(
+                    alignment: Alignment.center,
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
+                    minimumSize: MaterialStateProperty.all(Size((MediaQuery.of(context).size.width * 0.5), 40.0)),
+                    // padding: MaterialStateProperty.all(EdgeInsets.all(8.0))
+                  ),
+                  // onPressed: () => Navigator.pushNamed(context, CheckoutScreen.routeName),
+                  onPressed: () => Navigator.of(context).pop(MaterialPageRoute(
+                        builder: (context) => CheckoutScreen())),
+                  child: Text('Go back to Cart')
+                ), 
+
+                SizedBox(width: 30.0),
+                // Confirm order button
+                ElevatedButton(
+                  style: ButtonStyle(
+                    alignment: Alignment.center,
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
+                    minimumSize: MaterialStateProperty.all(Size((MediaQuery.of(context).size.width * 0.5), 40.0))
+                  ),
+                  // onPressed: () => Navigator.pushNamed(context, CheckoutScreen.routeName),
+                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => OrderConfirmedScreen())),
+                  child: Text('Confirm Purchase')
+                ),   
             ],
           ),
         )
+      )
     );  
   }
 }
