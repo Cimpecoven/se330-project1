@@ -3,7 +3,7 @@ import 'package:victrola_shop/database/user_dbhelper.dart';
 
 import 'package:victrola_shop/models/account.dart';
 import 'package:victrola_shop/screens/landing_screen.dart';
-import 'package:victrola_shop/screens/shopping-cart_screen.dart';
+import 'package:victrola_shop/screens/Cart-CheckoutScreens/shopping-cart_screen.dart';
 
 void main() {
   runApp(const MyApp());

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:victrola_shop/screens/landing_screen.dart';
-import 'package:victrola_shop/screens/shopping-cart_screen.dart';
+import 'package:victrola_shop/screens/Cart-CheckoutScreens/shopping-cart_screen.dart';
 
 import '../main.dart';
+import '../screens/Cart-CheckoutScreens/shopping-cart_screen.dart';
 
 // Credit: https://medium.com/coding-with-flutter/flutter-case-study-multiple-navigators-with-bottomnavigationbar-90eb6caa6dbf
 class ProfileNavigatorRoutes {
@@ -52,7 +53,8 @@ class TabNavigator extends StatelessWidget {
         initialRoute: TabNavigatorRoutes.root,
         onGenerateRoute: (routeSettings) {
           return MaterialPageRoute(
-              builder: (context) => routeBuilders[routeSettings.name]!(context));
+              builder: (context) =>
+                  routeBuilders[routeSettings.name]!(context));
         });
   }
 }
