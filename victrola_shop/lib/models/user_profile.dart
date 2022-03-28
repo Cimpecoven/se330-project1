@@ -1,30 +1,109 @@
+// import 'product.dart';
+
+
+enum AddressType {
+  billing,
+  shipping,
+}
+
 class UserProfile {
 
-  const UserProfile({
+  UserProfile({
     required this.firstName,
     required this.lastName,
-    // required this.email,
-    // required this.password
+    this.paymentInfo  = const [],
+    this.address = const [],
   });
 
-  final String firstName;
-  final String lastName;
-  final Address address;
-  final PaymentInfo paymentInfo;
+  // final int Id; // unique identifier for database: not necessary for demo code
+  String firstName;
+  String lastName;
+  List<Address> address;
+  List<PaymentInfo> paymentInfo;
 }
 
 class Address {
-  final AddressType type; // either billing or shipping
-  final String streetAddress;
-  final StatesUS state; // TODO: enum for states
-  final String zipCode;
+  Address({
+    required this.type,
+    required this.streetAddress,
+    required this.state,
+    required this.zipCode
+  });
+
+  AddressType type;
+  String streetAddress;
+  StatesUS state;
+  String zipCode;
 }
 
 class PaymentInfo {
-  // TODO: check if there are modules for credit-card stuff
+  // using flutter_credit_card for credit card view; this is for data storage
+  PaymentInfo({
+    required this.cardNumber,
+    required this.expirationDate,
+    required this.cardHolderName,
+    required this.cvvCode,  
+    required this.billingAddress,
+  });
 
-  final String cardHolder;
-  // card number
-  final DateTime expirationDate;
-  final Address billingAddress; // From user-profile
+  String cardNumber;
+  DateTime expirationDate;
+  String cardHolderName;
+  String cvvCode;
+  Address billingAddress; // From user-profile
+}
+
+// (StatesUS.AL).toString().split('.').last // <- way to get string for enum
+enum StatesUS {
+  AL, // ALABAMA
+  AK, // ALASKA
+  AZ, // ARIZONA
+  AR, // ARKANSAS
+  CA, // CALIFORNIA
+  CO, // COLORADO
+  CT, // CONNETICUT
+  DE, // DELEWARE
+  DC, // WASHINGTON DC
+  FL, // FLORIDA
+  GA, // GEORGIA
+  HI, // HAWAII
+  ID, // IDAHO
+  IL, // ILLINOIS
+  IN, // INDIANA
+  IA, // IOWA
+  KS, // KANSAS
+  KY, // KENTUCKY
+  LA, // LOUISIANA
+  ME, // MAINE
+  MD, // MARYLAND
+  MA, // MASSACHUSETTS
+  MI, // MICHIGAN
+  MN, // MINNESOTA
+  MS, // MISSISSIPPI
+  MO, // MISSOURI
+  MT, // MONTANA
+  NE, // NEBRASKA
+  NV, // NEVADA
+  NH, // NEW HAMPSHIRE
+  NJ, // NEW JERSEY
+  NM, // NEW MEXICO
+  NY, // NEW YORK
+  NC, // NORTH CAROLINA
+  ND, // NORTH DAKOTA
+  OH, // OHIO
+  OK, // OKLAHOMA
+  OR, // OREGON
+  PA, // PENNSYLVANIA
+  RI, // RHODE ISLAND
+  SC, // SOUTH cAROLINA
+  SD, // SOUTH DAKOTA
+  TN, // TENNESSEE
+  TX, // TEXAS
+  UT, // UTAH
+  VT, // VERMONT
+  VA, // VIRGINIA
+  WA, // WASHINGTON
+  WV, // WEST VIRGINIA
+  WI, // WISCONSIN
+  WY // WYOMING
 }
