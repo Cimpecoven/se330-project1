@@ -12,50 +12,49 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Victrola Shop',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blueGrey, accentColor: Colors.amber),
-      ),
-      home: AppView()
-      // builder: (context, child) => BaseWidget(child: child!),
-      // initialRoute: (DatabaseHelper.userInstance == null) ? '/login' : '/landing',
-      // initialRoute: LandingScreen.routeName,
-      // routes: {
-      // //   // manages routes in a different way:
-      //   LandingScreen.routeName: // Gives our route a name 
-      //     (context) => const LandingScreen(),
-        
-      // //   CategoryMealsScreen.routeName:
-      // //     (context) => const CategoryMealsScreen(),
+        title: 'Victrola Shop',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSwatch(
+              primarySwatch: Colors.blueGrey, accentColor: Colors.amber),
+        ),
+        home: AppView()
+        // builder: (context, child) => BaseWidget(child: child!),
+        // initialRoute: (DatabaseHelper.userInstance == null) ? '/login' : '/landing',
+        // initialRoute: LandingScreen.routeName,
+        // routes: {
+        // //   // manages routes in a different way:
+        //   LandingScreen.routeName: // Gives our route a name
+        //     (context) => const LandingScreen(),
 
-      //   ShoppingCartScreen.routeName:
-      //     (context) => ShoppingCartScreen(),
-      // },
-      // onGenerateRoute: (settings) { 
-      //   return MaterialPageRoute(builder: (context) => const CategoriesScreen()); 
-      // },
-      // onUnknownRoute: (settings) {
-      //   return MaterialPageRoute(builder: (context) => const CategoriesScreen());
-      // },
-    );
+        // //   CategoryMealsScreen.routeName:
+        // //     (context) => const CategoryMealsScreen(),
+
+        //   ShoppingCartScreen.routeName:
+        //     (context) => ShoppingCartScreen(),
+        // },
+        // onGenerateRoute: (settings) {
+        //   return MaterialPageRoute(builder: (context) => const CategoriesScreen());
+        // },
+        // onUnknownRoute: (settings) {
+        //   return MaterialPageRoute(builder: (context) => const CategoriesScreen());
+        // },
+        );
   }
 }
 
 enum TabItem { home, profile, cart, other }
 
 class AppView extends StatefulWidget {
-  const AppView({ Key? key }) : super(key: key);
+  const AppView({Key? key}) : super(key: key);
 
   @override
   State<AppView> createState() => _AppViewState();
 }
 
 class _AppViewState extends State<AppView> {
-  
   // TabItem _currentTab = TabItem.home;
   // final navigatorKey = GlobalKey<NavigatorState>();
   final PageController _myPage = PageController(initialPage: 1);
@@ -64,7 +63,7 @@ class _AppViewState extends State<AppView> {
   // @override
   // void initState() {
   //   super.initState();
-  //   _myPage = 
+  //   _myPage =
   //   selectedPage = 1;
   // }
 
@@ -73,7 +72,7 @@ class _AppViewState extends State<AppView> {
   //     _currentTab = tab;
   //   });
   // }
-  
+
   // void _selectTab(TabItem tab) {
   //   setState(() {
   //     _currentTab = tab;
@@ -81,7 +80,7 @@ class _AppViewState extends State<AppView> {
   // }
 
   void _selectTab(int index) {
-    _myPage.jumpToPage(index);  
+    _myPage.jumpToPage(index);
     setState(() {
       selectedPage = index;
     });
@@ -94,11 +93,10 @@ class _AppViewState extends State<AppView> {
       body: PageView(
         controller: _myPage,
         children: [
-          // LandingScreen(),
-          // ShoppingCartScreen()
-            Center(child: Text("PROFILE PAGE")), // Will have our three pages here
-            Center(child: Text("HOME PAGE")),
-            Center(child: Text("SHOP PAGE")),
+          // Will have our three pages here
+          Center(child: Text("PROFILE PAGE")),
+          LandingScreen(), //Center(child: Text("HOME PAGE")),
+          Center(child: Text("CART PAGE")), //ShoppingCartScreen()
         ],
       ), //TabNavigator(navigatorKey: navigatorKey, tabItem: _currentTab)
       bottomNavigationBar: BottomNavigationBar(
@@ -107,7 +105,8 @@ class _AppViewState extends State<AppView> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'Cart'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart), label: 'Cart'),
         ],
         currentIndex: selectedPage,
         selectedItemColor: Colors.amber,
