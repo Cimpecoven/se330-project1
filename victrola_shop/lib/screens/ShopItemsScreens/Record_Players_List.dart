@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-
-class OrderConfirmedScreen extends StatelessWidget {
-  const OrderConfirmedScreen({ Key? key }) : super(key: key);
+class RecordPlayersList extends StatelessWidget {
+  const RecordPlayersList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
