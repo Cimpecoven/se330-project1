@@ -34,7 +34,7 @@ class AppView extends StatefulWidget {
   const AppView({Key? key}) : super(key: key);
 
   @override
-  State<AppView> createState() => AppViewState();
+  State<AppView> createState() => _AppViewState();
 }
 
 class _AppViewState extends State<AppView> {
