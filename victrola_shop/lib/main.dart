@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:victrola_shop/database/user_dbhelper.dart';
 
 import 'package:victrola_shop/models/account.dart';
+import 'package:victrola_shop/screens/ShopItemsScreens/Record_Players_List.dart';
 import 'package:victrola_shop/screens/landing_screen.dart';
 import 'package:victrola_shop/screens/Cart-CheckoutScreens/shopping-cart_screen.dart';
 
@@ -51,10 +52,10 @@ class AppView extends StatefulWidget {
   const AppView({Key? key}) : super(key: key);
 
   @override
-  State<AppView> createState() => _AppViewState();
+  State<AppView> createState() => AppViewState();
 }
 
-class _AppViewState extends State<AppView> {
+class AppViewState extends State<AppView> {
   // TabItem _currentTab = TabItem.home;
   // final navigatorKey = GlobalKey<NavigatorState>();
   final PageController _myPage = PageController(initialPage: 1);
