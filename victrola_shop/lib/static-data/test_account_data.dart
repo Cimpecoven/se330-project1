@@ -2,6 +2,10 @@ import 'package:victrola_shop/models/user_profile.dart';
 
 import '../models/account.dart';
 
+Account FindTestAccount(String email, String password) => TEST_ACCOUNT_DATA.firstWhere((element) => element.email == email && element.password == password);
+
+
+
 var TEST_ACCOUNT_DATA = <Account>[
   Account(
     email: 'test@example.com',
