@@ -63,21 +63,25 @@ class ProfileListScreen extends StatelessWidget {
                   itemCount: DatabaseHelper.userInstance!.profiles.length,
                   itemBuilder: (context, index) => 
                     ListTile(
-                      title: Text(
-                        DatabaseHelper.userInstance!.profiles[index].firstName + DatabaseHelper.userInstance!.profiles[index].lastName,
+                      title: TextButton(
+                        child: Text(
+                        DatabaseHelper.userInstance!.profiles[index].firstName + ' ' + DatabaseHelper.userInstance!.profiles[index].lastName,
                         textAlign: TextAlign.left,
                           style: TextStyle(
                             // fontWeight: FontWeight.bold,
                             fontSize: 24.0
                           ),
                         ),
-                        subtitle: Text(
-                          (DatabaseHelper.userInstance!.profiles[index].address.length > 0) 
-                          ? DatabaseHelper.userInstance!.profiles[index].address[0].streetAddress + ' '
-                          + DatabaseHelper.userInstance!.profiles[index].address[0].state + ' '
-                          + DatabaseHelper.userInstance!.profiles[index].address[0].zipCode 
-                          : ''
-                        ),
+                        onPressed: () {},
+                      ),
+
+                      subtitle: Text(
+                        (DatabaseHelper.userInstance!.profiles[index].address.length > 0) 
+                        ? DatabaseHelper.userInstance!.profiles[index].address[0].streetAddress + ' '
+                        + DatabaseHelper.userInstance!.profiles[index].address[0].state + ' '
+                        + DatabaseHelper.userInstance!.profiles[index].address[0].zipCode 
+                        : ''
+                      ),
                     )
                   ),
                 ),
