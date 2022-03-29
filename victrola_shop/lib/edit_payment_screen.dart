@@ -3,11 +3,15 @@ import 'package:flutter_credit_card/credit_card_brand.dart';
 import 'package:flutter_credit_card/credit_card_form.dart';
 import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:flutter_credit_card/credit_card_widget.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:victrola_shop/database/user_dbhelper.dart';
 
 import 'models/user_profile.dart';
 
 class AddEditPaymentScreen extends StatefulWidget {
   const AddEditPaymentScreen({ Key? key }) : super(key: key);
+
+  
 
   @override
   State<AddEditPaymentScreen> createState() => _AddEditPaymentScreenState();
@@ -57,7 +61,7 @@ void onCreditCardModelChange(CreditCardModel? creditCardModel) {
                   expiryDate: expiryDate,
                   cardHolderName: cardHolderName,
                   cvvCode: cvvCode,
-                  onCreditCardModelChange: (model) => onCreditCardModelChange,
+                  onCreditCardModelChange: (model) => onCreditCardModelChange(model),
                   themeColor: Colors.blueGrey,
                   formKey: formKey
                 ),
@@ -69,9 +73,15 @@ void onCreditCardModelChange(CreditCardModel? creditCardModel) {
                     minimumSize: MaterialStateProperty.all(Size((MediaQuery.of(context).size.width * 0.5), 40.0)),
                     // padding: MaterialStateProperty.all(EdgeInsets.all(8.0))
                   ),
-                  // onPressed: () => Navigator.pushNamed(context, CheckoutScreen.routeName),
-                  onPressed: () => Navigator.of(context).pop(MaterialPageRoute(
-                        builder: (context) => AddEditPaymentScreen())),
+
+                  onPressed: () => Navigator.of(context).pop(
+                    PaymentInfo(
+                      cardNumber: cardNumber,
+                      expirationDate: DateTime.now(), // TODO
+                      cardHolderName: cardHolderName,
+                      cvvCode: cvvCode,
+                      billingAddress: DatabaseHelper.userInstance!.profiles[0].address[0] // TODO
+                    )),
                   child: Text('Submit')
                 ),
 
@@ -82,7 +92,7 @@ void onCreditCardModelChange(CreditCardModel? creditCardModel) {
                     minimumSize: MaterialStateProperty.all(Size((MediaQuery.of(context).size.width * 0.5), 40.0)),
                     // padding: MaterialStateProperty.all(EdgeInsets.all(8.0))
                   ),
-                  // onPressed: () => Navigator.pushNamed(context, CheckoutScreen.routeName),
+
                   onPressed: () => Navigator.of(context).pop(MaterialPageRoute(
                         builder: (context) => AddEditPaymentScreen())),
                   child: Text('Go back')

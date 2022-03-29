@@ -121,9 +121,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         title: TextButton(
                           child: Text('Add new Payment'),
                           onPressed: () async {
-                            final element = await Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => AddEditPaymentScreen()));
-                            userPaymentInfo.insert(0, element);
+                            PaymentInfo element = await Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => AddEditPaymentScreen())
+                            );
+                            
+                            setState(() {
+                              userPaymentInfo.add(element);
+                              paymentIndex = userPaymentInfo.length - 1;
+                            });
                           }
                         )
                       ), 

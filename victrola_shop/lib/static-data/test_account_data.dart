@@ -4,8 +4,6 @@ import '../models/account.dart';
 
 Account FindTestAccount(String email, String password) => TEST_ACCOUNT_DATA.firstWhere((element) => element.email == email && element.password == password);
 
-
-
 var TEST_ACCOUNT_DATA = <Account>[
   Account(
     email: 'test@example.com',
@@ -26,12 +24,30 @@ var TEST_ACCOUNT_DATA = <Account>[
               state: StatesUS.VA,
               zipCode: '67584'
             )
+          ),
+          PaymentInfo(
+            cardNumber: '1234 3456 4567 6789',
+            expirationDate: DateTime(2022, 3, 30),
+            cardHolderName:'Exemplifina Exemplifur',
+            cvvCode: '909',
+            billingAddress: Address(
+              type: AddressType.shipping,
+              streetAddress: '789 Example St. Acme City',
+              state: StatesUS.VA,
+              zipCode: '67584'
+            )
           )
         ],
         address: [
           Address(
             type: AddressType.shipping,
             streetAddress: '789 Example St. Acme City',
+            state: StatesUS.VA,
+            zipCode: '67584'
+          ),
+          Address(
+            type: AddressType.shipping,
+            streetAddress: '234 Test Ave. Acme City',
             state: StatesUS.VA,
             zipCode: '67584'
           )
