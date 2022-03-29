@@ -7,23 +7,32 @@ import 'package:victrola_shop/screens/Cart-CheckoutScreens/checkout_screen.dart'
 import 'package:victrola_shop/static-data/product_data.dart';
 import 'package:victrola_shop/widgets/cart_item.dart';
 
-class ShoppingCartScreen extends StatelessWidget {
-  
-  static String routeName = '/cart';
-  final cartData = DatabaseHelper.userInstance!.cart.entries;
+class ShoppingCartScreen extends StatefulWidget {
+    ShoppingCartScreen({Key? key}) : super(key: key) {}
+
+    static String routeName = '/cart';
+
+    @override
+    State<ShoppingCartScreen> createState() => _ShoppingCartScreenState();
+}
+
+class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
+  List<MapEntry<int, int>> get cartData => DatabaseHelper.userInstance!.cart.entries.toList();
   final shippingFeePercent = 0.03;
   final taxPercent = 0.04;
   var cartSubtotal = 0.0;
   var cartTotal = 0.0;
   
-  ShoppingCartScreen({Key? key}) : super(key: key) {
+  @override
+  void initState() {
     for (var item in cartData) {
-      cartSubtotal += BASE_PRODUCT_LINE[item.key].price;
+      cartSubtotal += BASE_PRODUCT_LINE[item.key].price * item.value;
     }
-    
     cartTotal = cartSubtotal + (cartSubtotal * shippingFeePercent) + (cartSubtotal * taxPercent);
-  }
 
+    super.initState();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -46,9 +55,14 @@ class ShoppingCartScreen extends StatelessWidget {
                         alignment: Alignment.centerRight,
                         child: TextButton(
                           child: Text('Remove All'),
-                          onPressed: () => cartData.forEach((item) {
-                              DatabaseHelper.instance.deleteCartItem(item.key);
-                            }),
+                          onPressed: () => setState(() {
+                            DatabaseHelper.userInstance!.cart.clear();
+                            cartSubtotal = 0.0;
+                            cartTotal = 0.0;
+                          })
+                          // cartData.forEach((item) {
+                          //     DatabaseHelper.instance.deleteCartItem(item.key);
+                          //   }),
                         )
                       )
                     ],
@@ -61,12 +75,43 @@ class ShoppingCartScreen extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.4,
                   child: ListView.builder(
                     itemCount: cartData.length,
-                    itemBuilder: (context, index) {
-                      final cartItem = cartData.elementAt(index);
-                      final product = BASE_PRODUCT_LINE[cartItem.key];
-                      // return widget for each shopping cart item
-                      return CartItem(product: product, quantity: cartItem.value);
-                    }
+                    itemBuilder: (context, index) => 
+                      ListTile(
+                        style: ListTileStyle.list,
+                        leading: SizedBox(
+                                  height: 50,
+                                  width: 50,
+                                  child: Image.network(BASE_PRODUCT_LINE[cartData[index].key].imageUrls[0], fit: BoxFit.cover)
+                                ), // Image of item
+                        title: Text(BASE_PRODUCT_LINE[cartData[index].key].productName),
+                        subtitle: Row(children: [
+                          IconButton(
+                            icon: Icon(Icons.remove),
+                            onPressed: () => setState(() {
+                              DatabaseHelper.userInstance!.cart.update(cartData[index].key, (value) => value-1);
+                              cartSubtotal -= BASE_PRODUCT_LINE[cartData[index].key].price;
+                              cartTotal = cartSubtotal + (cartSubtotal * shippingFeePercent) + (cartSubtotal * taxPercent);
+                            })
+                          ),
+                          Text(DatabaseHelper.userInstance!.cart[cartData[index].key].toString()),
+                          IconButton(
+                            icon: Icon(Icons.add),
+                            onPressed: () => setState(() {
+                              DatabaseHelper.userInstance!.cart.update(cartData[index].key, (value) => value+1);
+                              cartSubtotal += BASE_PRODUCT_LINE[cartData[index].key].price;
+                              cartTotal = cartSubtotal + (cartSubtotal * shippingFeePercent) + (cartSubtotal * taxPercent);
+                            })
+                          )
+                        ]),
+                        trailing: IconButton(
+                          icon: Icon(Icons.cancel, color: Colors.red[700]),
+                          onPressed: () => setState(() {
+                            int numberRemoved = DatabaseHelper.userInstance!.cart.remove(cartData[index].key)!;
+                            cartSubtotal -= BASE_PRODUCT_LINE[cartData[index].key].price * numberRemoved;
+                            cartTotal = cartSubtotal + (cartSubtotal * shippingFeePercent) + (cartSubtotal * taxPercent);
+                          }),
+                        ) // Cost/Remove button
+                      )
                   ),
                 ),
                 Divider(),
