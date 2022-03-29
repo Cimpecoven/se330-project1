@@ -156,7 +156,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       ),
                       ListTile(
                         title: TextButton(
-                          child: Text('Add new Address'),
+                          child: Text('Change Address'),
                           onPressed: () async {
                             int temp = await showDialog(
                               context: context,
