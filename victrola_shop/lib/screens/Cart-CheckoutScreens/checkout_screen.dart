@@ -23,7 +23,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   static String routeName = '/checkout';
   final cartData = DatabaseHelper.userInstance!.cart.entries;
   final userProfileData = DatabaseHelper.userInstance!.profiles[0];
-  List<PaymentInfo> userPaymentInfo = const [];
+  List<PaymentInfo> get userPaymentInfo => userProfileData.paymentInfo;
   final shippingFeePercent = 0.03;
   final taxPercent = 0.04;
   var cartSubtotal = 0.0;
@@ -33,7 +33,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   
   @override
   void initState() {
-    userPaymentInfo = userProfileData.paymentInfo;
+    // userPaymentInfo = userProfileData.paymentInfo;
     for (var item in cartData) {
       cartSubtotal += BASE_PRODUCT_LINE[item.key].price;
     }
@@ -126,7 +126,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             );
                             
                             setState(() {
-                              userPaymentInfo.add(element);
+                              userProfileData.paymentInfo.add(element);
                               paymentIndex = userPaymentInfo.length - 1;
                             });
                           }
@@ -173,10 +173,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         leading: Icon(Icons.add),
                         title: TextButton(
                           child: Text('Add new Address'),
-                          onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => AddEditAddressScreen())),
+                          onPressed: () async {
+                            Address element = await Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => AddEditAddressScreen())
+                            );
+                            
+                            setState(() {
+                              userProfileData.address.add(element);
+                              addressIndex = userProfileData.address.length - 1;
+                            });
+                          }
                         )
-                      ), 
+                      ) 
                     ],
                   )
                 ),

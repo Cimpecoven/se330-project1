@@ -21,7 +21,7 @@ var TEST_ACCOUNT_DATA = <Account>[
             billingAddress: Address(
               type: AddressType.shipping,
               streetAddress: '789 Example St. Acme City',
-              state: StatesUS.VA,
+              state: 'VA',
               zipCode: '67584'
             )
           ),
@@ -33,7 +33,7 @@ var TEST_ACCOUNT_DATA = <Account>[
             billingAddress: Address(
               type: AddressType.shipping,
               streetAddress: '789 Example St. Acme City',
-              state: StatesUS.VA,
+              state: 'VA',
               zipCode: '67584'
             )
           )
@@ -42,13 +42,13 @@ var TEST_ACCOUNT_DATA = <Account>[
           Address(
             type: AddressType.shipping,
             streetAddress: '789 Example St. Acme City',
-            state: StatesUS.VA,
+            state: 'VA',
             zipCode: '67584'
           ),
           Address(
             type: AddressType.shipping,
             streetAddress: '234 Test Ave. Acme City',
-            state: StatesUS.VA,
+            state: 'VA',
             zipCode: '67584'
           )
         ] 
