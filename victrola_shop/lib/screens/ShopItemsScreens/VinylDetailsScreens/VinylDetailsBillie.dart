@@ -6,14 +6,13 @@ import 'package:overlay_container/overlay_container.dart';
 class VinylsDetailsBillie extends StatelessWidget {
   const VinylsDetailsBillie({Key? key}) : super(key: key);
 
+  static String routeName = '/vinylDetailsBillie';
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: MyOverlayStatePage(),
-        title: 'Victrola Shop',
-        theme: ThemeData(
-            colorScheme: ColorScheme.fromSwatch(
-                primarySwatch: Colors.blueGrey, accentColor: Colors.amber)));
+    return Scaffold(
+      body: MyOverlayStatePage(),
+    );
   }
 }
 
