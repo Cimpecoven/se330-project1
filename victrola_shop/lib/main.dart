@@ -3,6 +3,7 @@ import 'package:victrola_shop/database/user_dbhelper.dart';
 
 import 'package:victrola_shop/models/account.dart';
 import 'package:victrola_shop/screens/LoginPage.dart';
+import 'package:victrola_shop/screens/ProfileScreens/profile_list_screen.dart';
 import 'package:victrola_shop/screens/landing_screen.dart';
 import 'package:victrola_shop/screens/Cart-CheckoutScreens/shopping-cart_screen.dart';
 import 'package:victrola_shop/static-data/test_account_data.dart';
@@ -66,7 +67,8 @@ class _AppViewState extends State<AppView> {
           controller: _myPage,
           children: [
             // Will have our three pages here
-            Center(child: Text("PROFILE PAGE")),
+            // Center(child: Text("PROFILE PAGE")),
+            ProfileListScreen(),
             LandingScreen(), //Center(child: Text("HOME PAGE")),
             ShoppingCartScreen()
           ],
