@@ -10,7 +10,7 @@ import 'package:victrola_shop/screens/ShopItemsScreens/ShopItemDetailsScreens/Sh
 class AccessoriesList extends StatelessWidget {
   const AccessoriesList({Key? key}) : super(key: key);
 
-  static String routeName = '/recordPlayersList';
+  static String routeName = '/accessoriesList';
 
   @override
   Widget build(BuildContext context) {

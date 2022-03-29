@@ -9,12 +9,9 @@ class ShopItemDetailsClassic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: MyOverlayStatePage(),
-        title: 'Victrola Shop',
-        theme: ThemeData(
-            colorScheme: ColorScheme.fromSwatch(
-                primarySwatch: Colors.blueGrey, accentColor: Colors.amber)));
+    return Scaffold(
+      body: MyOverlayStatePage(),
+    );
   }
 }
 

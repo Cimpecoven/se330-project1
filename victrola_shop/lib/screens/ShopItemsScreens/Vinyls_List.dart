@@ -11,7 +11,7 @@ import 'package:victrola_shop/screens/ShopItemsScreens/VinylDetailsScreens/Vinyl
 class VinylsList extends StatelessWidget {
   const VinylsList({Key? key}) : super(key: key);
 
-  static String routeName = '/recordPlayersList';
+  static String routeName = '/vinylsList';
 
   @override
   Widget build(BuildContext context) {
