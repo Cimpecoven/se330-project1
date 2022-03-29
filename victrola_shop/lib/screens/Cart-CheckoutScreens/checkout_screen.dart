@@ -9,8 +9,17 @@ import 'package:victrola_shop/screens/Cart-CheckoutScreens/select_payment_dialog
 import 'package:victrola_shop/screens/edit_address_sceen.dart';
 import 'package:victrola_shop/static-data/product_data.dart';
 
-class CheckoutScreen extends StatelessWidget {
+class CheckoutScreen extends StatefulWidget {
+  
+  CheckoutScreen({Key? key}) : super(key: key) {}
+  
+  
+  @override
+  State<CheckoutScreen> createState() => _CheckoutScreenState();
+}
 
+class _CheckoutScreenState extends State<CheckoutScreen> {
+  
   static String routeName = '/checkout';
   final cartData = DatabaseHelper.userInstance!.cart.entries;
   final userProfileData = DatabaseHelper.userInstance!.profiles[0];
@@ -19,14 +28,18 @@ class CheckoutScreen extends StatelessWidget {
   final taxPercent = 0.04;
   var cartSubtotal = 0.0;
   var cartTotal = 0.0;
+  var paymentIndex = 0;
+  var addressIndex = 0;
   
-  CheckoutScreen({Key? key}) : super(key: key) {
+  @override
+  void initState() {
     userPaymentInfo = userProfileData.paymentInfo;
     for (var item in cartData) {
       cartSubtotal += BASE_PRODUCT_LINE[item.key].price;
     }
     
     cartTotal = cartSubtotal + (cartSubtotal * shippingFeePercent) + (cartSubtotal * taxPercent);
+    super.initState();
   }
 
   @override
@@ -85,26 +98,33 @@ class CheckoutScreen extends StatelessWidget {
                     children: [
                       ListTile(
                         leading: Icon(Icons.credit_card),
-                        title: Text('Card ending in ${userPaymentInfo[0].cardNumber.substring(userPaymentInfo[0].cardNumber.length-4)}'),
-                        subtitle: Text(userPaymentInfo[0].billingAddress.streetAddress),
+                        title: Text('Card ending in ${userPaymentInfo[paymentIndex].cardNumber.substring(userPaymentInfo[paymentIndex].cardNumber.length-4)}'),
+                        subtitle: Text(userPaymentInfo[paymentIndex].billingAddress.streetAddress),
                       ),
                       ListTile(
                         title: TextButton(
                           child: Text('Change Payment Method'),
-                          onPressed: () => showDialog(
-                            context: context,
-                            builder: (context) {
-                              return new SelectPaymentDialog();
-                            }
-                          )
+                          onPressed: () async {
+                            int temp = await showDialog(
+                              context: context,
+                              builder: (context) => SelectPaymentDialog(paymentIndex: paymentIndex)
+                            );
+
+                            setState(() {
+                              paymentIndex = temp;
+                            });
+                          }
                         )
                       ),
                       ListTile(
                         leading: Icon(Icons.add),
                         title: TextButton(
                           child: Text('Add new Payment'),
-                          onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => AddEditPaymentScreen())),
+                          onPressed: () async {
+                            final element = await Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => AddEditPaymentScreen()));
+                            userPaymentInfo.insert(0, element);
+                          }
                         )
                       ), 
                     ],
@@ -127,17 +147,21 @@ class CheckoutScreen extends StatelessWidget {
                     children: [
                       ListTile(
                         leading: Icon(Icons.local_shipping),
-                        title: Text(userProfileData.address[0].streetAddress),
+                        title: Text(userProfileData.address[addressIndex].streetAddress),
                       ),
                       ListTile(
                         title: TextButton(
                           child: Text('Add new Address'),
-                          onPressed: () => showDialog(
-                            context: context,
-                            builder: (context) {
-                              return new SelectAddressDialog();
-                            }
-                          )
+                          onPressed: () async {
+                            int temp = await showDialog(
+                              context: context,
+                              builder: (context) => SelectAddressDialog(addressIndex: addressIndex)
+                            );
+
+                            setState(() {
+                              addressIndex = temp;
+                            });
+                          }
                         )
                       ),
                       ListTile(
@@ -178,7 +202,7 @@ class CheckoutScreen extends StatelessWidget {
                   ),
                   // onPressed: () => Navigator.pushNamed(context, CheckoutScreen.routeName),
                   onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => OrderConfirmedScreen(selectedAddress: userProfileData.address[0]))),
+                        builder: (context) => OrderConfirmedScreen(selectedAddress: userProfileData.address[addressIndex]))),
                   child: Text('Confirm Purchase')
                 ),   
             ],
