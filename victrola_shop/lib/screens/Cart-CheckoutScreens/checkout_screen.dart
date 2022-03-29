@@ -35,7 +35,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   void initState() {
     // userPaymentInfo = userProfileData.paymentInfo;
     for (var item in cartData) {
-      cartSubtotal += BASE_PRODUCT_LINE[item.key].price;
+      cartSubtotal += BASE_PRODUCT_LINE[item.key].price * item.value;
     }
     
     cartTotal = cartSubtotal + (cartSubtotal * shippingFeePercent) + (cartSubtotal * taxPercent);
