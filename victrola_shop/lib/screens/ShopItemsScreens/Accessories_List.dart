@@ -77,13 +77,7 @@ class AccessoriesList extends StatelessWidget {
                 ]),
                 new Stack(children: [
                   GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const ShopItemDetailsClassic()));
-                      },
+                      onTap: () {},
                       child: Padding(
                           padding: EdgeInsets.all(8.0),
                           child: new Container(
@@ -123,13 +117,7 @@ class AccessoriesList extends StatelessWidget {
                 SizedBox(height: 50),
                 new Stack(children: [
                   GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const ShopItemDetailsTheEastwood()));
-                      },
+                      onTap: () {},
                       child: Padding(
                           padding: EdgeInsets.all(8.0),
                           child: new Container(
