@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:victrola_shop/database/user_dbhelper.dart';
+import 'package:victrola_shop/edit_payment_screen.dart';
 import 'package:victrola_shop/models/user_profile.dart';
 import 'package:victrola_shop/screens/Cart-CheckoutScreens/order-confirmed_screen.dart';
+import 'package:victrola_shop/screens/Cart-CheckoutScreens/select_address_dialog.dart';
+import 'package:victrola_shop/screens/Cart-CheckoutScreens/select_payment_dialog.dart';
+import 'package:victrola_shop/screens/edit_address_sceen.dart';
 import 'package:victrola_shop/static-data/product_data.dart';
 
 class CheckoutScreen extends StatelessWidget {
@@ -85,11 +89,23 @@ class CheckoutScreen extends StatelessWidget {
                         subtitle: Text(userPaymentInfo[0].billingAddress.streetAddress),
                       ),
                       ListTile(
-                        title: Text('Change Payment Method'), // text button
+                        title: TextButton(
+                          child: Text('Change Payment Method'),
+                          onPressed: () => showDialog(
+                            context: context,
+                            builder: (context) {
+                              return new SelectPaymentDialog();
+                            }
+                          )
+                        )
                       ),
                       ListTile(
                         leading: Icon(Icons.add),
-                        title: Text('Add new Payment'), // text button
+                        title: TextButton(
+                          child: Text('Add new Payment'),
+                          onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => AddEditPaymentScreen())),
+                        )
                       ), 
                     ],
                   )
@@ -114,11 +130,23 @@ class CheckoutScreen extends StatelessWidget {
                         title: Text(userProfileData.address[0].streetAddress),
                       ),
                       ListTile(
-                        title: Text('Change Address Method'), // Text button
+                        title: TextButton(
+                          child: Text('Add new Address'),
+                          onPressed: () => showDialog(
+                            context: context,
+                            builder: (context) {
+                              return new SelectAddressDialog();
+                            }
+                          )
+                        )
                       ),
                       ListTile(
                         leading: Icon(Icons.add),
-                        title: Text('Add new Address'), // text button
+                        title: TextButton(
+                          child: Text('Add new Address'),
+                          onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => AddEditAddressScreen())),
+                        )
                       ), 
                     ],
                   )
@@ -150,7 +178,7 @@ class CheckoutScreen extends StatelessWidget {
                   ),
                   // onPressed: () => Navigator.pushNamed(context, CheckoutScreen.routeName),
                   onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => OrderConfirmedScreen())),
+                        builder: (context) => OrderConfirmedScreen(selectedAddress: userProfileData.address[0]))),
                   child: Text('Confirm Purchase')
                 ),   
             ],

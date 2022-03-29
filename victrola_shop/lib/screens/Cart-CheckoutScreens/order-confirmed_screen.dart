@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:victrola_shop/database/user_dbhelper.dart';
+import 'package:victrola_shop/models/user_profile.dart';
 
 
 class OrderConfirmedScreen extends StatelessWidget {
-  const OrderConfirmedScreen({ Key? key }) : super(key: key);
+  const OrderConfirmedScreen({
+     Key? key,
+     required this.selectedAddress
+    }) : super(key: key);
+
+  final Address selectedAddress;
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +39,21 @@ class OrderConfirmedScreen extends StatelessWidget {
                     color: Colors.lightGreen[900]),
                     child: Icon(Icons.check, size: 150.0, color: Colors.green[600]),
                 ),
-                
+                SizedBox(height: 20.0),
                 Center(
                   child: Text('Order Confirmed!', textAlign: TextAlign.center),
                 ),
-                SizedBox(height: 15.0),
+                SizedBox(height: 20.0),
 
+                Center(
+                  child: Row(
+                    children: [
+                      Icon(Icons.local_shipping),
+                      Text(selectedAddress.streetAddress, textAlign: TextAlign.center)
+                    ]
+                  )
+                ),
+                SizedBox(height: 15.0),
                 ElevatedButton(
                   style: ButtonStyle(
                     alignment: Alignment.center,
