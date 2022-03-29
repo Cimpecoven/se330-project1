@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:victrola_shop/database/user_dbhelper.dart';
-import 'package:victrola_shop/edit_payment_screen.dart';
+import 'package:victrola_shop/screens/edit_payment_screen.dart';
 import 'package:victrola_shop/models/user_profile.dart';
 import 'package:victrola_shop/screens/Cart-CheckoutScreens/order-confirmed_screen.dart';
 import 'package:victrola_shop/screens/Cart-CheckoutScreens/select_address_dialog.dart';

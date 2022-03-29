@@ -6,7 +6,7 @@ import 'package:flutter_credit_card/credit_card_widget.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:victrola_shop/database/user_dbhelper.dart';
 
-import 'models/user_profile.dart';
+import '../models/user_profile.dart';
 
 class AddEditPaymentScreen extends StatefulWidget {
   const AddEditPaymentScreen({ Key? key }) : super(key: key);
