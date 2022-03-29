@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:victrola_shop/database/user_dbhelper.dart';
+import 'package:victrola_shop/models/user_profile.dart';
 import 'package:victrola_shop/screens/Cart-CheckoutScreens/order-confirmed_screen.dart';
 import 'package:victrola_shop/static-data/product_data.dart';
 
@@ -9,13 +10,14 @@ class CheckoutScreen extends StatelessWidget {
   static String routeName = '/checkout';
   final cartData = DatabaseHelper.userInstance!.cart.entries;
   final userProfileData = DatabaseHelper.userInstance!.profiles[0];
-  final userPaymentInfo = userProfileData.paymentInfo;
+  List<PaymentInfo> userPaymentInfo = const [];
   final shippingFeePercent = 0.03;
   final taxPercent = 0.04;
   var cartSubtotal = 0.0;
   var cartTotal = 0.0;
   
   CheckoutScreen({Key? key}) : super(key: key) {
+    userPaymentInfo = userProfileData.paymentInfo;
     for (var item in cartData) {
       cartSubtotal += BASE_PRODUCT_LINE[item.key].price;
     }
@@ -83,11 +85,11 @@ class CheckoutScreen extends StatelessWidget {
                         subtitle: Text(userPaymentInfo[0].billingAddress.streetAddress),
                       ),
                       ListTile(
-                        title: Text('Change Payment Method'),
+                        title: Text('Change Payment Method'), // text button
                       ),
                       ListTile(
                         leading: Icon(Icons.add),
-                        title: Text('Add new Payment'),
+                        title: Text('Add new Payment'), // text button
                       ), 
                     ],
                   )
@@ -108,15 +110,15 @@ class CheckoutScreen extends StatelessWidget {
                   child: ListView(
                     children: [
                       ListTile(
-                        leading: Icon(Icons.credit_card),
-                        title: Text(),
+                        leading: Icon(Icons.local_shipping),
+                        title: Text(userProfileData.address[0].streetAddress),
                       ),
                       ListTile(
-                        title: Text('Change Address Method'),
+                        title: Text('Change Address Method'), // Text button
                       ),
                       ListTile(
                         leading: Icon(Icons.add),
-                        title: Text('Add new Address'),
+                        title: Text('Add new Address'), // text button
                       ), 
                     ],
                   )
