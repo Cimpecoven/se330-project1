@@ -43,8 +43,8 @@ class _AppViewState extends State<AppView> {
   // DEMO CODE
   @override
   void initState() {
-    DatabaseHelper.userInstance = TEST_ACCOUNT_DATA.first;
-    DatabaseHelper.userInstance!.cart.addAll(<int, int>{ 3: 1, 2: 2, 1: 3 });
+    // DatabaseHelper.userInstance = TEST_ACCOUNT_DATA.first;
+    // DatabaseHelper.userInstance!.cart.addAll(<int, int>{ 3: 1, 2: 2, 1: 3 });
   }
 
   void _selectTab(int index) {
@@ -58,7 +58,8 @@ class _AppViewState extends State<AppView> {
   Widget build(BuildContext context) {
     if (DatabaseHelper.userInstance == null)
       return LoginPage();
-    else
+    else {
+      DatabaseHelper.userInstance!.cart.addAll(<int, int>{ 3: 1, 2: 2, 1: 3 });
       return Scaffold(
         appBar: AppBar(title: const Text('Victrola Shop')),
         body: PageView(
@@ -83,5 +84,6 @@ class _AppViewState extends State<AppView> {
           selectedItemColor: Colors.amber,
         ),
       );
+    }
   }
 }
