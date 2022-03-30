@@ -42,64 +42,65 @@ void onCreditCardModelChange(CreditCardModel? creditCardModel) {
 
  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                CreditCardWidget(
-                  cardNumber: cardNumber,
-                  expiryDate: expiryDate,
-                  cardHolderName: cardHolderName,
-                  cvvCode: cvvCode,
-                  showBackView: false, 
-                  onCreditCardWidgetChange: (brand) {},
-                  cardBgColor: Colors.blueGrey,
-                ),
-                CreditCardForm(
-                  cardNumber: cardNumber,
-                  expiryDate: expiryDate,
-                  cardHolderName: cardHolderName,
-                  cvvCode: cvvCode,
-                  onCreditCardModelChange: (model) => onCreditCardModelChange(model),
-                  themeColor: Colors.blueGrey,
-                  formKey: formKey
-                ),
-
-                ElevatedButton(
-                  style: ButtonStyle(
-                    alignment: Alignment.center,
-                    backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
-                    minimumSize: MaterialStateProperty.all(Size((MediaQuery.of(context).size.width * 0.5), 40.0)),
-                    // padding: MaterialStateProperty.all(EdgeInsets.all(8.0))
-                  ),
-
-                  onPressed: () => Navigator.of(context).pop(
-                    PaymentInfo(
-                      cardNumber: cardNumber,
-                      expirationDate: DateTime.now(), // TODO
-                      cardHolderName: cardHolderName,
-                      cvvCode: cvvCode,
-                      billingAddress: DatabaseHelper.userInstance!.profiles[0].address[0] // TODO
-                    )),
-                  child: Text('Submit')
-                ),
-
-                ElevatedButton(
-                  style: ButtonStyle(
-                    alignment: Alignment.center,
-                    backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
-                    minimumSize: MaterialStateProperty.all(Size((MediaQuery.of(context).size.width * 0.5), 40.0)),
-                    // padding: MaterialStateProperty.all(EdgeInsets.all(8.0))
-                  ),
-
-                  onPressed: () => Navigator.of(context).pop(MaterialPageRoute(
-                        builder: (context) => AddEditPaymentScreen())),
-                  child: Text('Go back')
-                ), 
-              ],
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Victrola Shop'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            CreditCardWidget(
+              cardNumber: cardNumber,
+              expiryDate: expiryDate,
+              cardHolderName: cardHolderName,
+              cvvCode: cvvCode,
+              showBackView: false, 
+              onCreditCardWidgetChange: (brand) {},
+              cardBgColor: Colors.blueGrey,
             ),
-          )
+            CreditCardForm(
+              cardNumber: cardNumber,
+              expiryDate: expiryDate,
+              cardHolderName: cardHolderName,
+              cvvCode: cvvCode,
+              onCreditCardModelChange: (model) => onCreditCardModelChange(model),
+              themeColor: Colors.blueGrey,
+              formKey: formKey
+            ),
+
+            ElevatedButton(
+              style: ButtonStyle(
+                alignment: Alignment.center,
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
+                minimumSize: MaterialStateProperty.all(Size((MediaQuery.of(context).size.width * 0.5), 40.0)),
+                // padding: MaterialStateProperty.all(EdgeInsets.all(8.0))
+              ),
+
+              onPressed: () => Navigator.of(context).pop(
+                PaymentInfo(
+                  cardNumber: cardNumber,
+                  expirationDate: DateTime.now(), // TODO
+                  cardHolderName: cardHolderName,
+                  cvvCode: cvvCode,
+                  billingAddress: DatabaseHelper.userInstance!.profiles[0].address[0] // TODO
+                )),
+              child: Text('Submit')
+            ),
+
+            ElevatedButton(
+              style: ButtonStyle(
+                alignment: Alignment.center,
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
+                minimumSize: MaterialStateProperty.all(Size((MediaQuery.of(context).size.width * 0.5), 40.0)),
+                // padding: MaterialStateProperty.all(EdgeInsets.all(8.0))
+              ),
+
+              onPressed: () => Navigator.of(context).pop(MaterialPageRoute(
+                    builder: (context) => AddEditPaymentScreen())),
+              child: Text('Go back')
+            ), 
+          ],
+        ),
       )
     );
   }
