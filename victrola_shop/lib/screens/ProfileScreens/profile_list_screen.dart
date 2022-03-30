@@ -6,99 +6,97 @@ class ProfileListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
-          body: SingleChildScrollView( 
-            child: Column(
-              children: [
-                // Center(
-                //   child: Text('Profiles',
-                //   textAlign: TextAlign.center,
-                //     style: TextStyle(
-                //       fontWeight: FontWeight.bold,
-                //       fontSize: 38.0
-                //     ),
-                //   ),
-                // ),
+    return Scaffold(
+        body: SingleChildScrollView( 
+          child: Column(
+            children: [
+              // Center(
+              //   child: Text('Profiles',
+              //   textAlign: TextAlign.center,
+              //     style: TextStyle(
+              //       fontWeight: FontWeight.bold,
+              //       fontSize: 38.0
+              //     ),
+              //   ),
+              // ),
 
-                 Container(
-                  height: 100.0,
-                  child: Row(
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text('Profiles',
-                          textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 38.0
-                            ),
-                          ),
-                      ),
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.4),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          child: Text('Log Out'),
-                          onPressed: () {
-                            DatabaseHelper.userInstance = null;
-                            Navigator.popUntil(context, (route) => false);
-                            Navigator.of(context).pushNamed('/');
-                          }
-                          // cartData.forEach((item) {
-                          //     DatabaseHelper.instance.deleteCartItem(item.key);
-                          //   }),
-                        )
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(height: 15.0),
-                Divider(),
-                
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  child: ListView.builder(
-                  itemCount: DatabaseHelper.userInstance!.profiles.length,
-                  itemBuilder: (context, index) => 
-                    ListTile(
-                      title: TextButton(
-                        child: Text(
-                        DatabaseHelper.userInstance!.profiles[index].firstName + ' ' + DatabaseHelper.userInstance!.profiles[index].lastName,
-                        textAlign: TextAlign.left,
+                height: 100.0,
+                child: Row(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text('Profiles',
+                        textAlign: TextAlign.center,
                           style: TextStyle(
-                            // fontWeight: FontWeight.bold,
-                            fontSize: 24.0
+                            fontWeight: FontWeight.bold,
+                            fontSize: 38.0
                           ),
                         ),
-                        onPressed: () {},
-                      ),
-
-                      subtitle: Text(
-                        (DatabaseHelper.userInstance!.profiles[index].address.length > 0) 
-                        ? DatabaseHelper.userInstance!.profiles[index].address[0].streetAddress + ' '
-                        + DatabaseHelper.userInstance!.profiles[index].address[0].state + ' '
-                        + DatabaseHelper.userInstance!.profiles[index].address[0].zipCode 
-                        : ''
-                      ),
+                    ),
+                    SizedBox(width: MediaQuery.of(context).size.width * 0.4),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        child: Text('Log Out'),
+                        onPressed: () {
+                          DatabaseHelper.userInstance = null;
+                          Navigator.popUntil(context, (route) => false);
+                          Navigator.of(context).pushNamed('/');
+                        }
+                        // cartData.forEach((item) {
+                        //     DatabaseHelper.instance.deleteCartItem(item.key);
+                        //   }),
+                      )
                     )
-                  ),
+                  ],
                 ),
+              ),
+              SizedBox(height: 15.0),
+              Divider(),
+              
+              Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: MediaQuery.of(context).size.height * 0.5,
+                child: ListView.builder(
+                itemCount: DatabaseHelper.userInstance!.profiles.length,
+                itemBuilder: (context, index) => 
+                  ListTile(
+                    title: TextButton(
+                      child: Text(
+                      DatabaseHelper.userInstance!.profiles[index].firstName + ' ' + DatabaseHelper.userInstance!.profiles[index].lastName,
+                      textAlign: TextAlign.left,
+                        style: TextStyle(
+                          // fontWeight: FontWeight.bold,
+                          fontSize: 24.0
+                        ),
+                      ),
+                      onPressed: () {},
+                    ),
 
-                ElevatedButton(
-                  style: ButtonStyle(
-                    alignment: Alignment.center,
-                    backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
-                    minimumSize: MaterialStateProperty.all(Size((MediaQuery.of(context).size.width * 0.5), 40.0))
-                  ),
-                  onPressed: () => {},
-                  // Navigator.of(context).push(MaterialPageRoute(
-                  //       builder: (context) => CheckoutScreen())),
-                  child: Text('Add Profile')
-                ),    
-              ]
-            )
+                    subtitle: Text(
+                      (DatabaseHelper.userInstance!.profiles[index].address.length > 0) 
+                      ? DatabaseHelper.userInstance!.profiles[index].address[0].streetAddress + ' '
+                      + DatabaseHelper.userInstance!.profiles[index].address[0].state + ' '
+                      + DatabaseHelper.userInstance!.profiles[index].address[0].zipCode 
+                      : ''
+                    ),
+                  )
+                ),
+              ),
+
+              ElevatedButton(
+                style: ButtonStyle(
+                  alignment: Alignment.center,
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
+                  minimumSize: MaterialStateProperty.all(Size((MediaQuery.of(context).size.width * 0.5), 40.0))
+                ),
+                onPressed: () => {},
+                // Navigator.of(context).push(MaterialPageRoute(
+                //       builder: (context) => CheckoutScreen())),
+                child: Text('Add Profile')
+              ),    
+            ]
           )
         )
     );
