@@ -139,7 +139,13 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                         ),
                         child: Text(
                           DatabaseHelper.userInstance!.profiles[widget.i]
-                                  .address[0].streetAddress.isNotEmpty
+                                      .address.isNotEmpty &&
+                                  DatabaseHelper
+                                      .userInstance!
+                                      .profiles[widget.i]
+                                      .address[0]
+                                      .streetAddress
+                                      .isNotEmpty
                               ? DatabaseHelper.userInstance!.profiles[widget.i]
                                   .address[0].streetAddress
                               : '',
@@ -156,7 +162,13 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                         ),
                         child: Text(
                           DatabaseHelper.userInstance!.profiles[widget.i]
-                                  .address[0].state.isNotEmpty
+                                      .address.isNotEmpty &&
+                                  DatabaseHelper
+                                      .userInstance!
+                                      .profiles[widget.i]
+                                      .address[0]
+                                      .state
+                                      .isNotEmpty
                               ? DatabaseHelper.userInstance!.profiles[widget.i]
                                       .address[0].state +
                                   '  ' +
@@ -227,7 +239,13 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                         ),
                         child: Text(
                           DatabaseHelper.userInstance!.profiles[widget.i]
-                                  .paymentInfo[0].cardNumber.isNotEmpty
+                                      .paymentInfo.isNotEmpty &&
+                                  DatabaseHelper
+                                      .userInstance!
+                                      .profiles[widget.i]
+                                      .paymentInfo[0]
+                                      .cardNumber
+                                      .isNotEmpty
                               ? DatabaseHelper.userInstance!.profiles[widget.i]
                                   .paymentInfo[0].cardNumber
                               : '',
@@ -245,8 +263,13 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                         ),
                         child: Text(
                           DatabaseHelper.userInstance!.profiles[widget.i]
-                                      .paymentInfo[0].billingAddress !=
-                                  ''
+                                      .paymentInfo.isNotEmpty &&
+                                  DatabaseHelper
+                                          .userInstance!
+                                          .profiles[widget.i]
+                                          .paymentInfo[0]
+                                          .billingAddress !=
+                                      ''
                               ? DatabaseHelper
                                       .userInstance!
                                       .profiles[widget.i]
