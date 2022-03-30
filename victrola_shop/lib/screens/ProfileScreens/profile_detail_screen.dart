@@ -3,6 +3,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:victrola_shop/database/user_dbhelper.dart';
+import 'package:victrola_shop/screens/edit_address_sceen.dart';
+import 'package:victrola_shop/screens/edit_payment_screen.dart';
+import 'package:victrola_shop/widgets/name_popup.dart';
 
 class ProfileDetailScreen extends StatefulWidget {
   const ProfileDetailScreen({Key? key, required this.i}) : super(key: key);
@@ -76,7 +79,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                       ),
                     ],
                   ),
-                  new Spacer(),
+                  Spacer(),
                   Container(
                     //padding: EdgeInsets.only(left: 100),
                     height: 50,
@@ -86,7 +89,13 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                       borderRadius: BorderRadius.circular(50),
                     ),
                     child: TextButton(
-                      onPressed: () => {},
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) =>
+                              buildPopupDialog(context, widget.i),
+                        );
+                      },
                       child: const Text(
                         'Change',
                         style: TextStyle(
@@ -172,7 +181,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                       borderRadius: BorderRadius.circular(50),
                     ),
                     child: TextButton(
-                      onPressed: () => {},
+                      onPressed: () => {AddEditAddressScreen()},
                       child: const Text(
                         'Change',
                         style: TextStyle(
@@ -275,7 +284,9 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                       borderRadius: BorderRadius.circular(50),
                     ),
                     child: TextButton(
-                      onPressed: () => {},
+                      onPressed: () {
+                        AddEditPaymentScreen();
+                      },
                       child: const Text(
                         'Change',
                         style: TextStyle(
