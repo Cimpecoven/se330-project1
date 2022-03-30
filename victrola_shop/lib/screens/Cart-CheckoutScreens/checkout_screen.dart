@@ -128,6 +128,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           );
                           
                           setState(() {
+                          
                             userProfileData.paymentInfo.add(element);
                             paymentIndex = userPaymentInfo.length - 1;
                           });

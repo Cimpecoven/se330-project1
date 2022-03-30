@@ -60,7 +60,7 @@ Widget buildPopupDialog(BuildContext context, int i) {
                   DatabaseHelper.userInstance!.profiles[i].firstName =
                       firstName;
                   DatabaseHelper.userInstance!.profiles[i].lastName = lastName;
-                  Navigator.of(context).pop();
+                  Navigator.pop(context, firstName + ' ' + lastName);
                 },
               ),
             )

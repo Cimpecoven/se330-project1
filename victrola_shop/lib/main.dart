@@ -62,7 +62,6 @@ class _AppViewState extends State<AppView> {
       return LoginPage();
     }
     else {
-      DatabaseHelper.userInstance!.cart.addAll(<int, int>{ 3: 1, 2: 2, 1: 3 });
       return Scaffold(
         appBar: AppBar(title: const Text('Victrola Shop')),
         body: PageView(

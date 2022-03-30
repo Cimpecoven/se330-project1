@@ -6,13 +6,14 @@ class Account {
   Account({
     required this.email,
     required this.password,
-    this.profiles  = const [], // If I was more concerned with the database-stuff, I would fill that in, but as it is, this is a demo, and I want it to be functional first
+    this.profiles  = const [],
+    this.cart = const <int, int>{} // If I was more concerned with the database-stuff, I would fill that in, but as it is, this is a demo, and I want it to be functional first
   });
 
   final String email;
   final String password;
   final List<UserProfile> profiles;
-  final Map<int, int> cart = <int, int>{}; // Cart represented by two ints - key: the array-index of the product in product_data; value: the quantity of said product 
+  final Map<int, int> cart; //= <int, int>{} // Cart represented by two ints - key: the array-index of the product in product_data; value: the quantity of said product 
 
   factory Account.accountFromMap(Map<String, dynamic> map) {
     return Account(

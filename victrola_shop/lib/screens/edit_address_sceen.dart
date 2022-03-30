@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:overlay_container/overlay_container.dart';
 import 'package:victrola_shop/models/user_profile.dart';
 class AddEditAddressScreen extends StatefulWidget {
   const AddEditAddressScreen({ Key? key }) : super(key: key);
@@ -12,12 +13,15 @@ class _AddEditAddressScreenState extends State<AddEditAddressScreen> {
   final _addressFormKey = GlobalKey<_AddEditAddressScreenState>();
 
   String streetAddress = '';
-  String state = '';
+  String selectedState = '';
   String zipCode = '';
-
-  // _stateEnumToString(StatesUS stateEnum) {
-  //   state = 
-  // }
+  bool _dropdownShown = false;
+  
+  void _toggleDropdown() {
+    setState(() {
+      _dropdownShown = !_dropdownShown;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,26 +65,69 @@ class _AddEditAddressScreenState extends State<AddEditAddressScreen> {
             //   },
             ),
 
-            DropdownButtonFormField<String>(
-            decoration: const InputDecoration(
-              labelText: 'State',
-              // hintText: '',
+
+            OverlayContainer(
+              show: _dropdownShown,
+              child: Container(
+                height: 70,
+                padding: const EdgeInsets.all(20),
+                margin: const EdgeInsets.only(top: 5),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: Colors.grey,
+                      blurRadius: 3,
+                      spreadRadius: 6,
+                    )
+                  ],
+                ),
+                child: Row(
+                  children: USStates.entries.map((e) { return DropdownMenuItem<String>(value: e.value, child: Text(e.value)); }).toList()
+                ),
+              ),
             ),
-            items: USStates.entries.map((e) => DropdownMenuItem<String>(value: e.value, child: Text(e.value))).toList(),
-            // menuMaxHeight: 50.0,
-            icon: const Icon(Icons.arrow_downward),
-            value: state,
-            onChanged: (String? value) => setState(() {
-              state = value!;
-            }),
-            //   validator: (value) {
-            //     if (value == null || value.isEmpty) {
-            //       return 'Please enter some text';
-            //     }
-            //     else if ()
-            //     return null;
-            //   },
-            ),
+
+            // OverlayContainer(
+            //   child: DropdownButton<String>(
+            //   items: ['SD', 'MN', 'IA', 'NE'].map((e) { return DropdownMenuItem<String>(value: e, child: Text(e)); }).toList(), //USStates.entries.map((e) { return DropdownMenuItem<String>(value: e.value, child: Text(e.value)); }).toList(),
+            //   icon: const Icon(Icons.arrow_drop_down),
+            //   value: selectedState,
+            //   onChanged: (String? value) => setState(() {
+            //     selectedState = value!;
+            //   }),
+            //   //   validator: (value) {
+            //   //     if (value == null || value.isEmpty) {
+            //   //       return 'Please enter some text';
+            //   //     }
+            //   //     else if ()
+            //   //     return null;
+            //   //   },
+            //   )
+            // ),
+
+            // Center(
+            //   child: DropdownButtonFormField<String>(
+            //     value: state,
+            //     icon: const Icon(Icons.arrow_downward),
+            //     elevation: 16,
+            //     style: const TextStyle(color: Colors.deepPurple),
+            //     // underline: Container(
+            //     //   height: 2,
+            //     //   color: Colors.deepPurpleAccent,
+            //     // ),
+            //     onChanged: (String? newValue) {
+            //       setState(() {
+            //         state = newValue!;
+            //       });
+            //     },
+            //     items: [DropdownMenuItem<String>(
+            //           value: 'test',
+            //           child: Text('test'),
+            //         )
+            //       ]
+            //   )
+            // ),
 
             TextFormField(
             decoration: const InputDecoration(
@@ -108,7 +155,7 @@ class _AddEditAddressScreenState extends State<AddEditAddressScreen> {
               ),
               // onPressed: () => Navigator.pushNamed(context, CheckoutScreen.routeName),
               onPressed: () => Navigator.of(context).pop(
-                Address(type: AddressType.shipping, streetAddress: streetAddress, state: state, zipCode: zipCode)
+                Address(type: AddressType.shipping, streetAddress: streetAddress, state: selectedState, zipCode: zipCode)
               ),
               child: Text('Submit')
             ),

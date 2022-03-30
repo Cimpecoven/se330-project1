@@ -15,6 +15,19 @@ class ProfileDetailScreen extends StatefulWidget {
 }
 
 class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
+  
+  String userFullName = '';
+
+  @override
+  void initState() {
+    userFullName =  DatabaseHelper
+          .userInstance!.profiles[widget.i].firstName +
+      ' ' +
+      DatabaseHelper
+          .userInstance!.profiles[widget.i].lastName;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,11 +79,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                           bottom: 8.0,
                         ),
                         child: Text(
-                          DatabaseHelper
-                                  .userInstance!.profiles[widget.i].firstName +
-                              ' ' +
-                              DatabaseHelper
-                                  .userInstance!.profiles[widget.i].lastName,
+                          userFullName,
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.grey,
@@ -89,12 +98,16 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                       borderRadius: BorderRadius.circular(50),
                     ),
                     child: TextButton(
-                      onPressed: () {
-                        showDialog(
+                      onPressed: () async {
+                        String newName = await showDialog(
                           context: context,
                           builder: (BuildContext context) =>
                               buildPopupDialog(context, widget.i),
                         );
+
+                          setState(() {
+                            userFullName = newName;
+                          });
                       },
                       child: const Text(
                         'Change',

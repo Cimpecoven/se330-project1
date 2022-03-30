@@ -16,6 +16,7 @@ var TEST_ACCOUNT_DATA = <Account>[
   Account(
     email: 'test@example.com',
     password: 'password',
+    cart: <int, int>{ 3: 1, 2: 2, 1: 1 },
     profiles: [
       UserProfile(
         firstName: 'Exemplar',
