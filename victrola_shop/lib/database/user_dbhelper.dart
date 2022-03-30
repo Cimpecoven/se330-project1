@@ -9,7 +9,7 @@ import '../models/account.dart';
 // Should be the database for all our account-business: including other tables for subclasses
 class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._instance();
-  
+
   // The global value for the current user: null if not logged in yet
   static Account? userInstance;
 
@@ -29,41 +29,38 @@ class DatabaseHelper {
 
   _initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, 'user.db'); // Fancy way to do string-concatination: not database-join
+    String path = join(documentsDirectory.path,
+        'user.db'); // Fancy way to do string-concatination: not database-join
     var theDatabase = await openDatabase(path, version: 1, onCreate: _createDB);
     return theDatabase;
   }
 
   _createDB(Database database, int version) async {
-    await database.execute('PRAGMA foreign_keys - ON'); // To make sure we can join our tables together
     await database.execute(
-      // SQLite is not case-sensitive
-      'CREATE TABLE Account( ' +
-        // 'id INTEGER PRIMARY_KEY, ' +
-        'email TEXT PRIMARY_KEY, ' +
-        'password TEXT PRIMARY_KEY ) ' +
-      
-      // The table containing each and every cart item for every user
-      // This is a one-to-many relationship: one account for many cartItems
-      'CREATE TABLE CartItems( ' +
-        // 'id INTEGER PRIMARY_KEY ' + 
-        'email TEXT PRIMARY_KEY FOREIGN KEY(email) REFERENCES Account(email) ' +
-        'password TEXT PRIMARY_KEY FOREIGN KEY(password) REFERENCES Account(password) ' +
-        'productId PRIMARY_KEY INTEGER ' +
-        'quantity INTEGER )'
-      );
+        'PRAGMA foreign_keys - ON'); // To make sure we can join our tables together
+    await database.execute(
+        // SQLite is not case-sensitive
+        'CREATE TABLE Account( ' +
+            // 'id INTEGER PRIMARY_KEY, ' +
+            'email TEXT PRIMARY_KEY, ' +
+            'password TEXT PRIMARY_KEY ) ' +
+
+            // The table containing each and every cart item for every user
+            // This is a one-to-many relationship: one account for many cartItems
+            'CREATE TABLE CartItems( ' +
+            // 'id INTEGER PRIMARY_KEY ' +
+            'email TEXT PRIMARY_KEY FOREIGN KEY(email) REFERENCES Account(email) ' +
+            'password TEXT PRIMARY_KEY FOREIGN KEY(password) REFERENCES Account(password) ' +
+            'productId PRIMARY_KEY INTEGER ' +
+            'quantity INTEGER )');
   }
 
   Future<void> insertAccountData(Account account) async {
     final client = await database;
-    await client!.insert(
-      'Account',
-      account.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace
-    );
+    await client!.insert('Account', account.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
 
     for (var cartItem in account.cart.entries) {
-
       Map<String, dynamic> sqlCartItem = {
         'email': account.email,
         'password': account.password,
@@ -71,25 +68,26 @@ class DatabaseHelper {
         'productId': cartItem.value
       };
 
-      await client!.insert(
-        'CartItems',
-        sqlCartItem,
-        conflictAlgorithm: ConflictAlgorithm.replace
-      );
+      await client.insert('CartItems', sqlCartItem,
+          conflictAlgorithm: ConflictAlgorithm.replace);
     }
   }
 
   Future<Account?> getUserAccountData(String email, String password) async {
     final client = await database;
-    final List<Map<String, dynamic>> accountMap = await client!.query('Account', where: 'email = ? AND password = ? ', whereArgs: [email, password]);
-    if (accountMap.isEmpty)
-    {
+    final List<Map<String, dynamic>> accountMap = await client!.query('Account',
+        where: 'email = ? AND password = ? ', whereArgs: [email, password]);
+    if (accountMap.isEmpty) {
       // there wasn't a user with that data (yet), return null
       return null;
     }
 
-    final Account account = Account.accountFromMap(accountMap.first); // Take the first because it should exist if we get to here
-    final List<Map<String, dynamic>> cartItemsMapList = await client!.query('CartItems', where: 'email = ? AND password = ? ', whereArgs: [email, password]);
+    final Account account = Account.accountFromMap(accountMap
+        .first); // Take the first because it should exist if we get to here
+    final List<Map<String, dynamic>> cartItemsMapList = await client.query(
+        'CartItems',
+        where: 'email = ? AND password = ? ',
+        whereArgs: [email, password]);
     account.cartFromMapList(cartItemsMapList);
     return account;
   }
@@ -98,7 +96,9 @@ class DatabaseHelper {
     final email = DatabaseHelper.userInstance!.email;
     final password = DatabaseHelper.userInstance!.password;
     final client = await database;
-    await client!.delete('CartItems', where: 'productId = ? AND email = ? AND password = ? ', whereArgs: [productType, email, password]);
+    await client!.delete('CartItems',
+        where: 'productId = ? AND email = ? AND password = ? ',
+        whereArgs: [productType, email, password]);
   }
 
   // Future<List<Map<String, dynamic>>> getEmployeeMapList() async {

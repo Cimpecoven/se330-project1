@@ -145,13 +145,10 @@ class _SignUpPageState extends State<SignUpPage> {
                   passCheck = value;
                 }),
                 validator: (value) {
-                  if (value != null &&
-                      value.isNotEmpty &&
-                      value.compareTo(password) == 0) {
-                    match = true;
+                  if (value != null && value.isNotEmpty) {
                     return null;
                   } else {
-                    return 'Passwords do not match!';
+                    return 'Confirm Password is a required field.';
                   }
                 },
                 /*onSaved: (value) {
@@ -175,7 +172,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   Account? test = FindTestAccount(email, password);
                   if (test == null &&
                       (email.isNotEmpty && password.isNotEmpty) &&
-                      match) {
+                      passCheck == password) {
                     test = Account(email: email, password: password, profiles: [
                       UserProfile(firstName: firstName, lastName: lastName)
                     ]);
@@ -187,7 +184,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content:
                             Text('A required field was empty, try again.')));
-                  } else if (!match) {
+                  } else if (passCheck != password) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                           content: Text(
