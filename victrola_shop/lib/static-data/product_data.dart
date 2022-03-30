@@ -146,9 +146,35 @@ const BASE_PRODUCT_LINE = [
     colorOptions: [],
     hasColorOptions: false,
     isAccessory: true
+  ),
+// ];
+
+// const OTHER_ACCESSORIES = [
+
+  Product(
+    id: 'vacc1',
+    productName: 'The Kit', 
+    description: 'There’s nothing worse than the scratchy sound of a dirty vinyl record. Fortunately, you can keep your favorite albums grime and dirt free with Victrola’s Kit. The Kit comes equipped with an anti-static brush to remove dust, as well as cleaning solution and cloth for deep cleaning. ',
+    imageUrls: [
+      'https://cdn.shopify.com/s/files/1/2245/0063/products/VA-55-ESP_1_700x700.jpg?v=1619527744'
+    ],
+    price: 29.99,
+    colorOptions: [],
+    hasColorOptions: false,
+    isAccessory: true
+  ),
+
+    Product(
+    id: 'vc7',
+    productName: 'Revolution GO Portable Rechargeable Record Player', 
+    description: 'Introducing the award-winning Victrola Revolution GO, the world’s first portable, rechargeable, Bluetooth® record player. The battery-powered Revolution GO allows you to take vinyl records any place you want to listen. ',
+    imageUrls: [
+      'https://cdn.shopify.com/s/files/1/2245/0063/files/VSC-750SB-BLU_2_778c88b0-d81a-4724-aa6e-fb4ca31dcc4d.jpg?v=1636646122',
+      'https://cdn.shopify.com/s/files/1/2245/0063/products/VSC-750SB-BLK_1_75x75.jpg?v=1630081792'
+    ],
+    price: 179.99,
+    colorOptions: ['Teal', 'Black', ],
+    hasColorOptions: false,
+    isAccessory: false
   )
-];
-
-const OTHER_ACCESSORIES = [
-
 ];
