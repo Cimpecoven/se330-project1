@@ -15,6 +15,7 @@ class _AddEditAddressScreenState extends State<AddEditAddressScreen> {
   String streetAddress = '';
   String selectedState = '';
   String zipCode = '';
+  bool anyErrors = false;
   bool _dropdownShown = false;
   
   void _toggleDropdown() {
@@ -65,28 +66,52 @@ class _AddEditAddressScreenState extends State<AddEditAddressScreen> {
             //   },
             ),
 
-
-            OverlayContainer(
-              show: _dropdownShown,
-              child: Container(
-                height: 70,
-                padding: const EdgeInsets.all(20),
-                margin: const EdgeInsets.only(top: 5),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: Colors.grey,
-                      blurRadius: 3,
-                      spreadRadius: 6,
-                    )
-                  ],
-                ),
-                child: Row(
-                  children: USStates.entries.map((e) { return DropdownMenuItem<String>(value: e.value, child: Text(e.value)); }).toList()
-                ),
-              ),
+            TextFormField(
+            decoration: const InputDecoration(
+              labelText: 'State',
+              hintText: 'SD',
             ),
+            onChanged: (value) => setState(() {
+              selectedState = value;
+            }),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  anyErrors = true;
+                  return 'Please enter some text.';
+                }
+                else if (value.length > 2)
+                {
+                  anyErrors = true;
+                  return 'State initials only.';
+                }
+                else {
+                  return null;
+                }
+              },
+            ),
+
+
+            // OverlayContainer(
+            //   show: _dropdownShown,
+            //   child: Container(
+            //     height: 70,
+            //     padding: const EdgeInsets.all(20),
+            //     margin: const EdgeInsets.only(top: 5),
+            //     decoration: BoxDecoration(
+            //       color: Colors.white,
+            //       boxShadow: <BoxShadow>[
+            //         BoxShadow(
+            //           color: Colors.grey,
+            //           blurRadius: 3,
+            //           spreadRadius: 6,
+            //         )
+            //       ],
+            //     ),
+            //     child: Row(
+            //       children: USStates.entries.map((e) { return DropdownMenuItem<String>(value: e.value, child: Text(e.value)); }).toList()
+            //     ),
+            //   ),
+            // ),
 
             // OverlayContainer(
             //   child: DropdownButton<String>(
