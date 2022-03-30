@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:victrola_shop/database/user_dbhelper.dart';
 
 import 'package:victrola_shop/models/account.dart';
+import 'package:victrola_shop/screens/ShopItemsScreens/Record_Players_List.dart';
 import 'package:victrola_shop/screens/LoginPage.dart';
 import 'package:victrola_shop/screens/ProfileScreens/profile_list_screen.dart';
 import 'package:victrola_shop/screens/landing_screen.dart';
