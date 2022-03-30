@@ -55,7 +55,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   } else {
                     return 'First Name is a required field.';
                   }
-                },                // onSaved: (value) => firstName = value!,
+                }, // onSaved: (value) => firstName = value!,
                 onChanged: (value) => setState(() {
                   firstName = value;
                 }),
@@ -77,7 +77,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   } else {
                     return 'Last Name is a required field.';
                   }
-                },                // onSaved: (value) => lastName = value!,
+                }, // onSaved: (value) => lastName = value!,
                 onChanged: (value) => setState(() {
                   lastName = value;
                 }),
@@ -99,7 +99,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   } else {
                     return 'Email is a required field.';
                   }
-                },                // onSaved: (value) => email = value!,
+                }, // onSaved: (value) => email = value!,
                 onChanged: (value) => setState(() {
                   email = value;
                 }),
@@ -145,7 +145,9 @@ class _SignUpPageState extends State<SignUpPage> {
                   passCheck = value;
                 }),
                 validator: (value) {
-                  if (value != null && value.isNotEmpty && value.compareTo(password) == 0) {
+                  if (value != null &&
+                      value.isNotEmpty &&
+                      value.compareTo(password) == 0) {
                     match = true;
                     return null;
                   } else {
@@ -171,22 +173,34 @@ class _SignUpPageState extends State<SignUpPage> {
               child: TextButton(
                 onPressed: () {
                   Account? test = FindTestAccount(email, password);
-                  if (test == null && (email.isNotEmpty && password.isNotEmpty)) {
-                    test = Account(email: email, password: password, profiles: [UserProfile(firstName: firstName, lastName: lastName)]);
+                  if (test == null &&
+                      (email.isNotEmpty && password.isNotEmpty) &&
+                      match) {
+                    test = Account(email: email, password: password, profiles: [
+                      UserProfile(firstName: firstName, lastName: lastName)
+                    ]);
                     TEST_ACCOUNT_DATA.add(test);
                     DatabaseHelper.userInstance = test;
                     Navigator.popUntil(context, (route) => false);
                     Navigator.of(context).pushNamed('/');
-                  }
-                  else if (email.isEmpty || password.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('A required field was empty, try again.')));
-                  }
-                  else {
+                  } else if (email.isEmpty || password.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content:
+                            Text('A required field was empty, try again.')));
+                  } else if (!match) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('The user already existed. Please Try again.')),
+                      const SnackBar(
+                          content: Text(
+                              'Passwords must match for account to be created.')),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text(
+                              'The user already existed. Please Try again.')),
                     );
                   }
-                },                
+                },
                 child: const Text(
                   'Submit',
                   style: TextStyle(
