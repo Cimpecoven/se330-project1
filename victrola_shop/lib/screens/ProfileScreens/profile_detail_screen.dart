@@ -181,7 +181,9 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                       borderRadius: BorderRadius.circular(50),
                     ),
                     child: TextButton(
-                      onPressed: () => {AddEditAddressScreen()},
+                      onPressed: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => AddEditAddressScreen())),
                       child: const Text(
                         'Change',
                         style: TextStyle(
@@ -284,9 +286,9 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                       borderRadius: BorderRadius.circular(50),
                     ),
                     child: TextButton(
-                      onPressed: () {
-                        AddEditPaymentScreen();
-                      },
+                      onPressed: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => AddEditPaymentScreen())),
                       child: const Text(
                         'Change',
                         style: TextStyle(
