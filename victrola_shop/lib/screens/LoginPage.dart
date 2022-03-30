@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:victrola_shop/database/user_dbhelper.dart';
+import 'package:victrola_shop/models/account.dart';
+import 'package:victrola_shop/screens/SignUpPage.dart';
+import 'package:victrola_shop/static-data/test_account_data.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -8,6 +12,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  String email = '';
+  String password = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 30.0),
               child: TextField(
                 style: TextStyle(fontSize: 20, height: 2.0),
@@ -38,9 +46,12 @@ class _LoginPageState extends State<LoginPage> {
                   labelText: 'Email',
                   hintText: 'Enter valid email id as abc@gmail.com',
                 ),
+                onChanged: (String value) => setState(() {
+                  email = value;
+                }),
               ),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(left: 30.0, right: 30.0, bottom: 50.0),
               child: TextField(
                 obscureText: true,
@@ -50,6 +61,9 @@ class _LoginPageState extends State<LoginPage> {
                   labelText: 'Password',
                   //hintText: 'Enter password associated with email',
                 ),
+                onChanged: (String value) => setState(() {
+                  password = value;
+                }),
               ),
             ),
             Container(
@@ -60,7 +74,18 @@ class _LoginPageState extends State<LoginPage> {
                 borderRadius: BorderRadius.circular(50),
               ),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Account? test = FindTestAccount(email, password);
+                  if (test != null) {
+                    DatabaseHelper.userInstance = test;
+                    Navigator.of(context).pushNamed('/');
+                  }
+                  else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('The user entered does not currently exist. Please Try again.')),
+                    );
+                  }
+                },
                 child: const Text(
                   'Submit',
                   style: TextStyle(
@@ -82,7 +107,9 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => SignUpPage())
+              ),
               child: const Text('Register',
                   style: TextStyle(
                     color: Colors.blue,

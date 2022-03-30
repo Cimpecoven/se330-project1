@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:victrola_shop/database/user_dbhelper.dart';
+import 'package:victrola_shop/models/account.dart';
+import 'package:victrola_shop/models/user_profile.dart';
+import 'package:victrola_shop/static-data/test_account_data.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -46,7 +50,10 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 keyboardType: TextInputType.name,
                 //validator:
-                onSaved: (value) => firstName = value!,
+                // onSaved: (value) => firstName = value!,
+                onChanged: (value) => setState(() {
+                  firstName = value;
+                }),
               ),
             ),
             Padding(
@@ -60,7 +67,10 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 keyboardType: TextInputType.name,
                 //validator:
-                onSaved: (value) => lastName = value!,
+                // onSaved: (value) => lastName = value!,
+                onChanged: (value) => setState(() {
+                  lastName = value;
+                }),
               ),
             ),
             Padding(
@@ -74,7 +84,10 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 keyboardType: TextInputType.emailAddress,
                 //validator; (maybe check for @?)
-                onSaved: (value) => email = value!,
+                // onSaved: (value) => email = value!,
+                onChanged: (value) => setState(() {
+                  email = value;
+                }),
               ),
             ),
             Padding(
@@ -89,7 +102,10 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 keyboardType: TextInputType.text,
                 //validator:
-                onSaved: (value) => passCheck = value!,
+                // onSaved: (value) => passCheck = value!,
+                onChanged: (value) => setState(() {
+                  password = value;
+                }),
               ),
             ),
             Padding(
@@ -104,8 +120,11 @@ class _SignUpPageState extends State<SignUpPage> {
                   labelText: 'Confirm Password',
                 ),
                 keyboardType: TextInputType.text,
+                onChanged: (value) => setState(() {
+                  passCheck = value;
+                }),
                 validator: (value) {
-                  if (value != null && value.compareTo(passCheck) == 1) {
+                  if (value != null && value.compareTo(password) == 0) {
                     match = true;
                     return null;
                   } else {
@@ -129,7 +148,21 @@ class _SignUpPageState extends State<SignUpPage> {
                 borderRadius: BorderRadius.circular(50),
               ),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Account? test = FindTestAccount(email, password);
+                  if (test == null) {
+                    test = Account(email: email, password: password, profiles: [UserProfile(firstName: firstName, lastName: lastName)]);
+                    TEST_ACCOUNT_DATA.add(test);
+                    DatabaseHelper.userInstance = test;
+                    Navigator.popUntil(context, (route) => false);
+                    Navigator.of(context).pushNamed('/');
+                  }
+                  else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('The user already existed. Please Try again.')),
+                    );
+                  }
+                },                
                 child: const Text(
                   'Submit',
                   style: TextStyle(

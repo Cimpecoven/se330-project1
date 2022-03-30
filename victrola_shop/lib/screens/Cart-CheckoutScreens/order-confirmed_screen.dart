@@ -17,6 +17,7 @@ class OrderConfirmedScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(height: 15.0),
             Center(
               child: Text('Thank you for shopping with us!',
               textAlign: TextAlign.center,

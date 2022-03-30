@@ -2,7 +2,15 @@ import 'package:victrola_shop/models/user_profile.dart';
 
 import '../models/account.dart';
 
-Account FindTestAccount(String email, String password) => TEST_ACCOUNT_DATA.firstWhere((element) => element.email == email && element.password == password);
+Account? FindTestAccount(String email, String password)
+{
+  Account value = TEST_ACCOUNT_DATA.firstWhere(
+    (element) => element.email == email && element.password == password,
+    orElse: () => Account(email: 'INVALID', password: 'INVALID')
+  );
+
+  return (value.email == 'INVALID') ? null : value;
+}
 
 var TEST_ACCOUNT_DATA = <Account>[
   Account(

@@ -4,6 +4,7 @@ import 'package:victrola_shop/database/user_dbhelper.dart';
 import 'package:victrola_shop/models/account.dart';
 import 'package:victrola_shop/screens/ShopItemsScreens/Record_Players_List.dart';
 import 'package:victrola_shop/screens/LoginPage.dart';
+import 'package:victrola_shop/screens/ProfileScreens/profile_list_screen.dart';
 import 'package:victrola_shop/screens/landing_screen.dart';
 import 'package:victrola_shop/screens/Cart-CheckoutScreens/shopping-cart_screen.dart';
 import 'package:victrola_shop/static-data/test_account_data.dart';
@@ -44,8 +45,8 @@ class _AppViewState extends State<AppView> {
   // DEMO CODE
   @override
   void initState() {
-    DatabaseHelper.userInstance = TEST_ACCOUNT_DATA.first;
-    DatabaseHelper.userInstance!.cart.addAll(<int, int>{ 3: 1, 2: 2, 1: 3 });
+    // DatabaseHelper.userInstance = TEST_ACCOUNT_DATA.first;
+    // DatabaseHelper.userInstance!.cart.addAll(<int, int>{ 3: 1, 2: 2, 1: 3 });
   }
 
   void _selectTab(int index) {
@@ -61,13 +62,15 @@ class _AppViewState extends State<AppView> {
       return LoginPage();
     }
     else {
+      DatabaseHelper.userInstance!.cart.addAll(<int, int>{ 3: 1, 2: 2, 1: 3 });
       return Scaffold(
         appBar: AppBar(title: const Text('Victrola Shop')),
         body: PageView(
           controller: _myPage,
           children: [
             // Will have our three pages here
-            Center(child: Text("PROFILE PAGE")),
+            // Center(child: Text("PROFILE PAGE")),
+            ProfileListScreen(),
             LandingScreen(), //Center(child: Text("HOME PAGE")),
             ShoppingCartScreen()
           ],
