@@ -57,9 +57,10 @@ class _AppViewState extends State<AppView> {
 
   @override
   Widget build(BuildContext context) {
-    if (DatabaseHelper.userInstance == null)
+    if (DatabaseHelper.userInstance == null){
       return LoginPage();
-    else
+    }
+    else {
       return Scaffold(
         appBar: AppBar(title: const Text('Victrola Shop')),
         body: PageView(
@@ -84,5 +85,6 @@ class _AppViewState extends State<AppView> {
           selectedItemColor: Colors.amber,
         ),
       );
+    }
   }
 }
