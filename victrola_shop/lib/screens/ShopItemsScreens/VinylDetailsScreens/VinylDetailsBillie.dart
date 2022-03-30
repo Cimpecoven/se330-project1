@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:overlay_container/overlay_container.dart';
+import 'package:victrola_shop/database/user_dbhelper.dart';
 
 class VinylsDetailsBillie extends StatelessWidget {
   const VinylsDetailsBillie({Key? key}) : super(key: key);
@@ -82,7 +83,9 @@ class _MyOverlayState extends State<MyOverlayStatePage> {
                   child: Column(
                     children: <Widget>[
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () => setState(() {
+                          DatabaseHelper.userInstance!.cart.update(10, (value) => value+1, ifAbsent: () => 1);
+                        }),
                         child: Column(
                           children: <Widget>[
                             Text("\nAdd to Cart\n",

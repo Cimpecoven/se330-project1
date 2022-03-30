@@ -84,9 +84,9 @@ const BASE_PRODUCT_LINE = [
     hasColorOptions: true,
     isAccessory: false
   ),
-];
+// ];
 
-const VINYL_ALBUMS = [
+// const VINYL_ALBUMS = [
   Product(
     id: 'va1',
     productName: 'Michael Jackson: Thriller: 25th Anniversary Edition',
@@ -119,6 +119,30 @@ const VINYL_ALBUMS = [
       'https://cdn.shopify.com/s/files/1/2245/0063/products/1793127_700x700.jpg?v=1639051099'
     ],
     price: 44.09,
+    colorOptions: [],
+    hasColorOptions: false,
+    isAccessory: true
+  ),
+  Product(
+    id: 'va4',
+    productName: 'The Beatles: Abbey Road Anniversary 1LP', 
+    description: 'Standard vinyl LP pressing. Digitally remixed 50th Anniversary edition of The Beatles musical masterpiece.',
+    imageUrls: [
+      'https://cdn.shopify.com/s/files/1/2245/0063/products/3715025-2419385_700x700.jpg?v=1638954007'
+    ],
+    price: 26.64,
+    colorOptions: [],
+    hasColorOptions: false,
+    isAccessory: true
+  ),
+    Product(
+    id: 'va5',
+    productName: 'Billie Eilish: Dont Smile At Me', 
+    description: 'Red Vinyl LP pressing. 2017 debut EP from Billie Eilish the girl W Magazine calls Pops Terrifying 15-Year-Old Prodigy.',
+    imageUrls: [
+      'https://cdn.shopify.com/s/files/1/2245/0063/products/3258779-2559645_700x700.jpg?v=1639038074'
+    ],
+    price: 22.12,
     colorOptions: [],
     hasColorOptions: false,
     isAccessory: true
