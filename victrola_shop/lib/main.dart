@@ -58,8 +58,9 @@ class _AppViewState extends State<AppView> {
 
   @override
   Widget build(BuildContext context) {
-    if (DatabaseHelper.userInstance == null)
+    if (DatabaseHelper.userInstance == null){
       return LoginPage();
+    }
     else {
       DatabaseHelper.userInstance!.cart.addAll(<int, int>{ 3: 1, 2: 2, 1: 3 });
       return Scaffold(
