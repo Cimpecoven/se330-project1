@@ -49,8 +49,13 @@ class _SignUpPageState extends State<SignUpPage> {
                   labelText: 'First Name',
                 ),
                 keyboardType: TextInputType.name,
-                //validator:
-                // onSaved: (value) => firstName = value!,
+                validator: (value) {
+                  if (value != null && value.isNotEmpty) {
+                    return null;
+                  } else {
+                    return 'First Name is a required field.';
+                  }
+                },                // onSaved: (value) => firstName = value!,
                 onChanged: (value) => setState(() {
                   firstName = value;
                 }),
@@ -66,8 +71,13 @@ class _SignUpPageState extends State<SignUpPage> {
                   labelText: 'Last Name',
                 ),
                 keyboardType: TextInputType.name,
-                //validator:
-                // onSaved: (value) => lastName = value!,
+                validator: (value) {
+                  if (value != null && value.isNotEmpty) {
+                    return null;
+                  } else {
+                    return 'Last Name is a required field.';
+                  }
+                },                // onSaved: (value) => lastName = value!,
                 onChanged: (value) => setState(() {
                   lastName = value;
                 }),
@@ -83,8 +93,13 @@ class _SignUpPageState extends State<SignUpPage> {
                   labelText: 'Email Address',
                 ),
                 keyboardType: TextInputType.emailAddress,
-                //validator; (maybe check for @?)
-                // onSaved: (value) => email = value!,
+                validator: (value) {
+                  if (value != null && value.isNotEmpty) {
+                    return null;
+                  } else {
+                    return 'Email is a required field.';
+                  }
+                },                // onSaved: (value) => email = value!,
                 onChanged: (value) => setState(() {
                   email = value;
                 }),
@@ -101,7 +116,13 @@ class _SignUpPageState extends State<SignUpPage> {
                   labelText: 'Password',
                 ),
                 keyboardType: TextInputType.text,
-                //validator:
+                validator: (value) {
+                  if (value != null && value.isNotEmpty) {
+                    return null;
+                  } else {
+                    return 'Password is a required field.';
+                  }
+                },
                 // onSaved: (value) => passCheck = value!,
                 onChanged: (value) => setState(() {
                   password = value;
@@ -124,7 +145,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   passCheck = value;
                 }),
                 validator: (value) {
-                  if (value != null && value.compareTo(password) == 0) {
+                  if (value != null && value.isNotEmpty && value.compareTo(password) == 0) {
                     match = true;
                     return null;
                   } else {
@@ -150,12 +171,15 @@ class _SignUpPageState extends State<SignUpPage> {
               child: TextButton(
                 onPressed: () {
                   Account? test = FindTestAccount(email, password);
-                  if (test == null) {
+                  if (test == null && (email.isNotEmpty && password.isNotEmpty)) {
                     test = Account(email: email, password: password, profiles: [UserProfile(firstName: firstName, lastName: lastName)]);
                     TEST_ACCOUNT_DATA.add(test);
                     DatabaseHelper.userInstance = test;
                     Navigator.popUntil(context, (route) => false);
                     Navigator.of(context).pushNamed('/');
+                  }
+                  else if (email.isEmpty || password.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('A required field was empty, try again.')));
                   }
                   else {
                     ScaffoldMessenger.of(context).showSnackBar(

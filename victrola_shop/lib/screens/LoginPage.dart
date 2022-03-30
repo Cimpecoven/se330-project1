@@ -39,13 +39,20 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 30.0),
-              child: TextField(
+              child: TextFormField(
                 style: TextStyle(fontSize: 20, height: 2.0),
                 decoration: InputDecoration(
                   border: UnderlineInputBorder(),
                   labelText: 'Email',
                   hintText: 'Enter valid email id as abc@gmail.com',
                 ),
+                validator: (value) {
+                  if (value != null && value.isNotEmpty) {
+                    return null;
+                  } else {
+                    return 'Email is a required field.';
+                  }
+                }, 
                 onChanged: (String value) => setState(() {
                   email = value;
                 }),
@@ -53,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Padding(
               padding: EdgeInsets.only(left: 30.0, right: 30.0, bottom: 50.0),
-              child: TextField(
+              child: TextFormField(
                 obscureText: true,
                 style: TextStyle(fontSize: 20, height: 2.0),
                 decoration: InputDecoration(
@@ -61,6 +68,13 @@ class _LoginPageState extends State<LoginPage> {
                   labelText: 'Password',
                   //hintText: 'Enter password associated with email',
                 ),
+                validator: (value) {
+                  if (value != null && value.isNotEmpty) {
+                    return null;
+                  } else {
+                    return 'Password is a required field.';
+                  }
+                }, 
                 onChanged: (String value) => setState(() {
                   password = value;
                 }),
@@ -79,6 +93,9 @@ class _LoginPageState extends State<LoginPage> {
                   if (test != null) {
                     DatabaseHelper.userInstance = test;
                     Navigator.of(context).pushNamed('/');
+                  }
+                  else if (email.isEmpty || password.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('A required field was empty, try again.')));
                   }
                   else {
                     ScaffoldMessenger.of(context).showSnackBar(
